@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace _5101_Project_1
 {
@@ -22,9 +23,34 @@ namespace _5101_Project_1
 
         public void ParseCSV(string fileName)
         {
-            //parse file
-            //foreach line:
-            //info[cityName] = new CityInfo(params);
+            //get all lines from the file
+            List<string> lines = new List<string>(File.ReadAllLines(fileName));
+            foreach (string line in lines)
+            {
+                //get the data on each line delimited by comma ','
+                List<string> cityData = new List<string>(line.Split(","));
+
+                //CityInfo object to hold the data
+                CityInfo city = new CityInfo();
+
+                //adding data to CityInfo Properties
+                city.CityName = cityData[0];
+                city.CityAscii = cityData[1];
+                city.Latitude = decimal.Parse(cityData[2]);
+                city.Longitude = decimal.Parse(cityData[3]);
+                //city.Country = cityData[4]; country is not tracked
+                city.Province = cityData[5];
+
+                //if the capital is empty string in the file it does not denote a capital
+                if (cityData[6] == "admin")
+                    city.IsCapital = true;
+                
+                city.Population = int.Parse(cityData[7]);
+                city.CityID = int.Parse(cityData[8]);
+
+                //adding the cityInfo object to the dictionary with the key being its id
+                Cities[city.CityID] = city;
+            }
         }
 
         //this method calls one of the Parse functions based on the file type
