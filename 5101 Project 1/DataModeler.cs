@@ -5,7 +5,7 @@ namespace _5101_Project_1
     public class DataModeler
     {
         public delegate void ParseHandler(string file);
-        private Dictionary<string, CityInfo> info = new Dictionary<string, CityInfo>();
+        private Dictionary<int, CityInfo> Cities = new Dictionary<int, CityInfo>(); //~~  was mentioned in class that we can use the cityId instead of cityName to avoid dupes. Would make it <int, CityInfo> ~~
         public void ParseXML(string fileName)
         {
             //parse file
@@ -28,7 +28,7 @@ namespace _5101_Project_1
         }
 
         //this method calls one of the Parse functions based on the file type
-        public Dictionary<string, CityInfo> ParseFile(string filename, string type)
+        public Dictionary<int, CityInfo> ParseFile(string filename, string type) // I think this needs to just return a CityInfo object. and is called from statisitcs? Unsure.
         {
             switch (type)
             {
@@ -42,9 +42,9 @@ namespace _5101_Project_1
                     ParseXML(filename);
                     break;
                 default:
-                    break;
+                    break; //Throw exception here on invalid filetype? or validate it in client before calling?
             }
-            return info;
+            return Cities;
         }
     }
 }
