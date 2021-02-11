@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 
 namespace _5101_Project_1
 {
@@ -9,9 +10,35 @@ namespace _5101_Project_1
         private Dictionary<int, CityInfo> Cities = new Dictionary<int, CityInfo>(); //~~  was mentioned in class that we can use the cityId instead of cityName to avoid dupes. Would make it <int, CityInfo> ~~
         public void ParseXML(string fileName)
         {
-            //parse file
-            //foreach line:
-            //info[cityName] = new CityInfo(params);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(new StreamReader(fileName));
+            XmlNodeList nodeList = doc.GetElementsByTagName("CanadaCity");
+            foreach(XmlNode node in nodeList)
+            {
+                //getting the attribute data from the CanadaCity node
+                XmlNodeList nodeData = node.ChildNodes;
+
+                //CityInfo object to store city properties
+                CityInfo city = new CityInfo();
+
+                //adding data to CityInfo Properties
+                city.CityName = nodeData[0].InnerText;
+                city.CityAscii = nodeData[1].InnerText;
+                city.Latitude = decimal.Parse(nodeData[2].InnerText);
+                city.Longitude = decimal.Parse(nodeData[3].InnerText);
+                //city.Country = cityData[4]; country is not tracked
+                city.Province = nodeData[5].InnerText; ;
+
+                //if the capital is empty string in the file it does not denote a capital
+                if (nodeData[6].InnerText == "admin")
+                    city.IsCapital = true;
+
+                city.Population = int.Parse(nodeData[6].InnerText);
+                city.CityID = int.Parse(nodeData[6].InnerText);
+
+                //adding the cityInfo object to the dictionary with the key being its id
+                Cities[city.CityID] = city;
+            }
         }
 
         public void ParseJSON(string fileName)
