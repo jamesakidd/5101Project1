@@ -200,15 +200,15 @@ namespace _5101_Project_1
         /// <param name="lat2">Latitude of second location</param>
         /// <param name="lon2">Longitude of second location</param>
         /// <returns>The distance between the given points in Kilometers</returns>
-        private double GetDistance(double lat1, double lon1, double lat2, double lon2)
+        private double GetDistance(decimal lat1, decimal lon1, decimal lat2, decimal lon2)
         {
             const int radius = 6371;
-            double dLat = DegreeToRads(lat2 - lat1);
-            double dLon = DegreeToRads(lon2 - lon1);
+            decimal dLat = DegreeToRads(lat2 - lat1);
+            decimal dLon = DegreeToRads(lon2 - lon1);
             double a =
-                    Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(DegreeToRads(lat1)) * Math.Cos(DegreeToRads(lat2)) *
-                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+                    Math.Sin((double)(dLat / 2)) * Math.Sin((double)(dLat / 2)) +
+                    Math.Cos((double)DegreeToRads(lat1)) * Math.Cos((double)DegreeToRads(lat2)) *
+                    Math.Sin((double)(dLon / 2)) * Math.Sin((double)(dLon / 2));
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             return radius * c;
         }
@@ -218,9 +218,9 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="deg">the degrees to be converted</param>
         /// <returns>the given number in radians</returns>
-        private double DegreeToRads(double deg)
+        private decimal DegreeToRads(decimal deg)
         {
-            return deg * (Math.PI / 180);
+            return deg * (decimal) (Math.PI / 180);
         }
 
         /// <summary>
