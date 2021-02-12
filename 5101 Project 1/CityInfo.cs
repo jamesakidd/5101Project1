@@ -1,13 +1,22 @@
-﻿namespace _5101_Project_1
+﻿using Newtonsoft.Json;
+
+namespace _5101_Project_1
 {
     public class CityInfo
     {
+        [JsonProperty("id")]
         public int CityID { get; set; } //" id "
+        [JsonProperty("city")]
         public string CityName { get; set; } // " city "
+        [JsonProperty("city_ascii")]
         public string CityAscii { get; set; } // " city_ascii "
+        [JsonProperty("population")]
         public int Population { get; set; } // " population "
+        [JsonProperty("admin_name")]
         public string Province { get; set; } // ~~ field called " admin_name " in CSV file. ~~
+        [JsonProperty("lat")]
         public decimal Latitude { get; set; } // " lat "
+        [JsonProperty("lng")]
         public decimal Longitude { get; set; } // " lng "
         public bool IsCapital { get; set; } = false; // **************** NOT LISTED IN THE PROJECT DOC - NEED TO FIND OUT IF THIS IS ALLOWED ****************
 

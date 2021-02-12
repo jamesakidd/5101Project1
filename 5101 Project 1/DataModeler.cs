@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Newtonsoft.Json;
 
 namespace _5101_Project_1
 {
@@ -48,9 +49,12 @@ namespace _5101_Project_1
 
         public void ParseJSON(string fileName)
         {
-            //parse file
-            //foreach line:
-            //info[cityName] = new CityInfo(params);
+            string json = File.ReadAllText(fileName);
+            List<CityInfo> cities = JsonConvert.DeserializeObject<List<CityInfo>>(json);
+            foreach(CityInfo city in cities)
+            {
+                Cities[city.CityID] = city;
+            }
         }
 
         public void ParseCSV(string fileName)
