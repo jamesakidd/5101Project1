@@ -13,8 +13,14 @@ namespace _5101_Project_1
             XmlDocument doc = new XmlDocument();
             doc.Load(new StreamReader(fileName));
             XmlNodeList nodeList = doc.GetElementsByTagName("CanadaCity");
+            bool isTitleLine = true;
             foreach(XmlNode node in nodeList)
             {
+                if (isTitleLine)
+                {
+                    isTitleLine = false;
+                    continue;
+                }
                 //getting the attribute data from the CanadaCity node
                 XmlNodeList nodeData = node.ChildNodes;
 
@@ -32,9 +38,8 @@ namespace _5101_Project_1
                 //if the capital is empty string in the file it does not denote a capital
                 if (nodeData[6].InnerText == "admin")
                     city.IsCapital = true;
-
-                city.Population = int.Parse(nodeData[6].InnerText);
-                city.CityID = int.Parse(nodeData[6].InnerText);
+                city.Population = int.Parse(nodeData[7].InnerText);
+                city.CityID = int.Parse(nodeData[8].InnerText);
 
                 //adding the cityInfo object to the dictionary with the key being its id
                 Cities[city.CityID] = city;
