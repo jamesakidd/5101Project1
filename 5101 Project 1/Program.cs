@@ -30,7 +30,6 @@ namespace _5101_Project_1
 
             while (!isReset) {
 
-
                 // Validate which type of file we want to parse
                 Console.Write("Select an option from the list above (e.g. 1, 2,): ");
                 bool isValid = false;
@@ -65,7 +64,7 @@ namespace _5101_Project_1
                 // Ask what type of query we want to run on the catalogue
                 Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[selection - 1].Name + " file.\n");
                 Console.WriteLine(util.DisplayQueries());
-                Console.Write("Select a data query routine from the list above for the " + util.files[selection - 1].Name + " file (e.g. 1, 2,): ");
+               
 
                 // Validate query input
                 isValid = false;
@@ -73,6 +72,7 @@ namespace _5101_Project_1
                 while (!isValid) {
 
                     // Read input
+                    Console.Write("Select a data query routine from the list above for the " + util.files[selection - 1].Name + " file (e.g. 1, 2,): ");
                     string input = Console.ReadLine();
 
                     // Check if we got a number
@@ -85,7 +85,7 @@ namespace _5101_Project_1
                     }
 
                     // Check if number is in range
-                    if (querySelection < 1 || selection > 6) {
+                    if (querySelection < 1 || querySelection > 6) {
                         Console.WriteLine("Invalid Input: selection is not in range");
                     }
                     else {
