@@ -15,7 +15,7 @@ namespace _5101_Project_1
         private const string dataPath = @"..\..\..\Data";
 
         // File names
-        private FileInfo[] files;
+        public FileInfo[] files;
         // File exts
 
         // Prints the title
@@ -56,5 +56,17 @@ namespace _5101_Project_1
             return str;
         }
 
+        // Display queries
+        public String DisplayQueries()
+        {
+            String str = "";
+            str += "1) Display City Information\n";
+            str += "2) Display Province Cities\n";
+            str += "3) Calculate Province Population\n";
+            str += "4) Match Cities Population\n";
+            str += "5) Distance Between Cities\n";
+            str += "6) Restart Program And Choose Another File Or File Type To Query\n";
+            return str;
+        }
     }
 }
