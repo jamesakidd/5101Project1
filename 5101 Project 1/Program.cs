@@ -195,18 +195,17 @@ namespace _5101_Project_1
                 if (querySelection == 5) {
                     bool isDone = false;
                     while (!isDone) {
-                        Console.Write("Enter two city names, seperated by a comma, to find the distance between them (eg. London, Toronto): ");
+                        Console.Write("Enter two city, province pairs, seperated by a comma, to find the distance between them (eg. London, Ontario, Toronto, Ontario): ");
                         String input = Console.ReadLine();
                         String[] cities = input.Split(",");
 
-                        if (cities.Length != 2) {
+                        if (cities.Length != 4) {
                             Console.WriteLine("Invalid input, please try again.\n");
                             continue;
                         }
 
-                        /*** UNCOMMENT WHEN FUNCIONTALITY IS INTEGRATED ***/
-                        //float distance = stats.CalculateDistanceBetweenCities(cities[0], cities[1]);
-                        Console.WriteLine("Distance between cities[0] and cities[1] is distance (PLACEHOLDER)\n");
+                        double distance = stats.CalculateDistanceBetweenCities(cities[0].Trim(), cities[1].Trim(), cities[2].Trim(), cities[3].Trim());
+                        Console.WriteLine($"\nDistance between {cities[0]}, {cities[1]} and {cities[2]}, {cities[3]} is {distance} Kilometers\n");
                         isDone = true;
                         isReset = true;
                     }

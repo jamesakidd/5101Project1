@@ -32,10 +32,10 @@ namespace _5101_Project_1
         //return list of CityInfo to account fo duplicate names
         //in client: if(list.count > 1) - display city,province and ask user to choose one
         //in client: if(list is empty) - tell user to not be dumb
-        public List<CityInfo> DisplayCityInformation(string cityName)    //*************  UNTESTED  *************
+        public List<CityInfo> DisplayCityInformation(string cityName)
         {
             //change cityName arg to title case
-            new CultureInfo("en-US", false).TextInfo.ToTitleCase(cityName);
+            //new CultureInfo("en-US", false).TextInfo.ToTitleCase(cityName); //extrenious code possibly. 
             return (from city in CityCatalogue where string.Equals(city.Value.CityName, cityName, StringComparison.CurrentCultureIgnoreCase) select city.Value).ToList();
         }
 
@@ -94,14 +94,17 @@ namespace _5101_Project_1
         /// <param name="cityB">The destination city</param>
         /// <param name="provinceB">the destination city's province</param>
         /// <returns>The distance in Kilometers</returns>
-        public double CalculateDistanceBetweenCities(string cityA, string provinceA, string cityB, string provinceB) //*************  UNTESTED  *************
+        public double CalculateDistanceBetweenCities(string cityA, string provinceA, string cityB, string provinceB)
         {
+
             int cityOne = CityCatalogue.First(cityInfo => string.Equals(cityInfo.Value.CityName, cityA, StringComparison.CurrentCultureIgnoreCase) &&
-                                                               string.Equals(cityInfo.Value.Province, provinceA, StringComparison.CurrentCultureIgnoreCase)).Key;
+                                                       string.Equals(cityInfo.Value.Province, provinceA, StringComparison.CurrentCultureIgnoreCase)).Key;
+
             int cityTwo = CityCatalogue.First(cityInfo => string.Equals(cityInfo.Value.CityName, cityB, StringComparison.CurrentCultureIgnoreCase) &&
                                                                string.Equals(cityInfo.Value.Province, provinceB, StringComparison.CurrentCultureIgnoreCase)).Key;
 
-            return GetDistance(CityCatalogue[cityOne].Latitude, CityCatalogue[cityOne].Longitude, CityCatalogue[cityTwo].Latitude, CityCatalogue[cityTwo].Longitude);
+            double distance =  GetDistance(CityCatalogue[cityOne].Latitude, CityCatalogue[cityOne].Longitude, CityCatalogue[cityTwo].Latitude, CityCatalogue[cityTwo].Longitude);
+            return Math.Round(distance, 0, MidpointRounding.AwayFromZero);
         }
 
         // ************************************************************************
@@ -113,7 +116,7 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province">The province to total the population of</param>
         /// <returns>The total population</returns>
-        public int DisplayProvincePopulation(string province) //*************  UNTESTED  *************
+        public int DisplayProvincePopulation(string province) 
         {
             return CityCatalogue.Where(cityInfo => 
                 string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase))
@@ -144,6 +147,7 @@ namespace _5101_Project_1
             {
                 int totalPop = DisplayProvincePopulation(prov);
 
+                //IF - pop already exists: Adds one to pop
                 if (!retSortedDictionary.ContainsKey(totalPop))
                 {
                     retSortedDictionary.Add(totalPop,prov);
