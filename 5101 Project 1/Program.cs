@@ -93,8 +93,13 @@ namespace _5101_Project_1
                     }
                 }
 
-                // ******* Query Selection ****** //
-                // City Info
+                // ******************************************************* //
+                // ********** Query Selection **************************** //
+                // ******************************************************* //
+
+                // ************************************* //
+                // ********** CITY INFO **************** //
+                // ************************************* //
                 if (querySelection == 1) {
 
                     bool isDone = false;
@@ -102,6 +107,7 @@ namespace _5101_Project_1
                     while (!isDone) {
                         Console.Write("Enter a city name: ");
                         String city = Console.ReadLine();
+
 
                         List<CityInfo> info = stats.DisplayCityInformation(city);
                         if (info.Count == 0) {
@@ -117,7 +123,9 @@ namespace _5101_Project_1
                     }
                 }
 
-                // Display Province Cities
+                // ************************************* //
+                // ********* Display Province Cities**** //
+                // ************************************* //
                 if (querySelection == 2) {
 
                     // Get province name
@@ -164,7 +172,10 @@ namespace _5101_Project_1
                         }
                     }
                 }
-                // Match Cities Population
+
+                // ************************************* //
+                // ******** Match Cities Population **** //
+                // ************************************* //
                 if (querySelection == 4) {
 
                     // Get province name
@@ -191,7 +202,9 @@ namespace _5101_Project_1
                     }
                 }
 
-                // Distance Between Cities
+                // ************************************* //
+                // ******** Distance Between Cities **** //
+                // ************************************* //
                 if (querySelection == 5) {
                     bool isDone = false;
                     while (!isDone) {
@@ -211,7 +224,9 @@ namespace _5101_Project_1
                     }
                 }
 
-                // Restart Program And Choose Another File or File Type To Query
+                // **************************************************************************** //
+                // ******** Restart Program And Choose Another File or File Type To Querys **** //
+                // **************************************************************************** //
                 if (querySelection == 6) {
                     Console.WriteLine("Resetting...\n");
                 }
