@@ -64,7 +64,7 @@ namespace _5101_Project_1
                 // Ask what type of query we want to run on the catalogue
                 Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[selection - 1].Name + " file.\n");
                 Console.WriteLine(util.DisplayQueries());
-               
+
 
                 // Validate query input
                 isValid = false;
@@ -120,36 +120,7 @@ namespace _5101_Project_1
 
                         int citySelection = 0;
                         if (info.Count > 1) {
-                            bool isSelected = false;
-                            while (!isSelected) {
-                                // Select between two cities
-                                Console.WriteLine("Please choose which " + city + " by typeing the associated number: ");
-                                int count = 1;
-                                foreach (CityInfo c in info) {
-                                    Console.WriteLine(count + ". City: " + c.CityName + " Province: " + c.Province);
-                                    ++count;
-                                }
-
-                                String num = Console.ReadLine();
-
-                                // Check if we got a number
-                                try {
-                                    querySelection = Int32.Parse(num);
-                                    if (querySelection < 0 || querySelection > info.Count) {
-                                        Console.WriteLine("Invalid Input: selection out of range");
-                                    }
-                                    else {
-                                        isSelected = true;
-                                    }
-                                }
-                                catch (Exception ex) {
-                                    Console.WriteLine("Invalid Input: " + ex.Message);
-                                    continue;
-                                }
-
-                                citySelection = querySelection - 1;
-                                // Make the seleciton and display the popultation
-                            }
+                            citySelection = util.SelectDuplicateCity(info);
                         }
                         Console.WriteLine("\tName" + info[citySelection].CityName);
                         Console.WriteLine("\tPopulation: " + info[citySelection].Population);
@@ -270,33 +241,29 @@ namespace _5101_Project_1
                 // **************************************************************************** //
                 // ************************ Show city on map ********************************** //
                 // **************************************************************************** //
-                if (querySelection == 6)
-                {
+                if (querySelection == 6) {
                     bool isDone = false;
-                    while (!isDone)
-                    {
+                    while (!isDone) {
                         Console.Write("Enter a city name and province, separated by a comma. (eg. London, Ontario)");
                         string input = Console.ReadLine();
                         string[] cities = input.Split(",");
                         string city = cities[0];
                         string province = cities[1];
-                        if (cities.Length < 2)
-                        {
+                        if (cities.Length < 2) {
                             Console.WriteLine("Invalid input, please try again.\n");
                             continue;
                         }
-                        try
-                        {
+                        try {
                             stats.ShowCityOnMap(city, province);
-                        }catch(Exception ex)
-                        {
+                        }
+                        catch (Exception ex) {
                             Console.WriteLine(ex.Message);
                         }
-                        
+
                         isDone = true;
                         isReset = true;
                     }
-                    
+
                 }
             }
             Console.WriteLine("Exiting Program...");
