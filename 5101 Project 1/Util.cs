@@ -109,7 +109,7 @@ namespace _5101_Project_1
                 }
 
                 // Check if number is in range
-                if (querySelection < 0 || querySelection > 7) {
+                if (querySelection < 0 || querySelection > 8) {
                     Console.WriteLine("Invalid Input: selection is not in range");
                 }
                 else {
@@ -131,6 +131,7 @@ namespace _5101_Project_1
             str += "5) Distance Between Cities\n";
             str += "6) Display city on map\n";
             str += "7) Restart Program And Choose Another File Or File Type To Query\n";
+            str += "8) Rank Provinces by Population\n";
             str += "0) Exit Program\n";
             return str;
         }
