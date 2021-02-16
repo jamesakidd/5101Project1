@@ -3,44 +3,41 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
+
+/*
+ * Statistics.cs
+ * 2/16/2021
+ * Contains methods for return statistics from the CityCatalogue dataset.
+ */
+
 namespace _5101_Project_1
 {
     public class Statistics
     {
-
-        // Property: a variable of the Dictionary generic type called CityCatalogue
-        // holds cities' information returned from the DataModeler class. The variable
-        // key is the city name (or city id) itself, and the value is an object of the CityInfo class.
         public Dictionary<int, CityInfo> CityCatalogue;
 
-
-
-        //  Constructor(file name, file type).The user must specify the file name,
-        //  “Canadacities”, and then determine the file type or extension to be JSON,
-        //  XML, or CSV. You may get the value of the CityCatalogue here in this
-        //  constructor by calling the DataModeler.Parse method
         public Statistics(string fileName, string fileType)
         {
             CityCatalogue = new DataModeler().ParseFile(fileName, fileType);
         }
 
-
         // ************************************************************************
         // ********************** -- CITY STAT METHODS -- //***********************
         // ************************************************************************
 
-        //return list of CityInfo to account fo duplicate names
-        //in client: if(list.count > 1) - display city,province and ask user to choose one
-        //in client: if(list is empty) - tell user to not be dumb
+
+        /// <summary>
+        /// Returns a List of city objects matching the given city name.
+        /// </summary>
+        /// <param name="cityName"></param>
+        /// <returns>A list of the matching city names</returns>
         public List<CityInfo> DisplayCityInformation(string cityName)
         {
-            //change cityName arg to title case
-            //new CultureInfo("en-US", false).TextInfo.ToTitleCase(cityName); //extrenious code possibly. 
             return (from city in CityCatalogue where string.Equals(city.Value.CityName, cityName, StringComparison.CurrentCultureIgnoreCase) select city.Value).ToList();
         }
 
         /// <summary>
-        /// It will return the largest population city in a province
+        /// Returns the largest population city in a province
         /// </summary>
         /// <param name="province"></param>
         /// <returns>CityInfo Object of the city with the biggest pop in the given province</returns>
@@ -63,13 +60,26 @@ namespace _5101_Project_1
                 .OrderBy(c => c.Value.Population).First().Value;
         }
 
-        //CompareCitiesPopluation: This method will take two parameters
-        //each represents one city.It will return the city with a larger population
-        //and the population number of each city.
-        public void CompareCitiesPopluation(string city1, string city2)
+        /// <summary>
+        /// Returns tuple containing the name of the larger city and the two populations
+        /// </summary>
+        /// <param name="cityA">First city to compare</param>
+        /// <param name="cityB">Second city to compare</param>
+        /// <returns>Tuple containing: name of city, larger population, smaller population</returns>
+        public Tuple<string, int, int> CompareCitiesPopluation(string cityA, string cityB)
         {
-            //not sure how to go about returning all that.. maybe just print from this method? don't love that idea. 
-            //Maybe just return a list of the requested cities in a specific order, but does that satisfy the rubric?
+            List<CityInfo> city1 = DisplayCityInformation(cityA);
+            List<CityInfo> city2 = DisplayCityInformation(cityB);
+            Util util = new Util();
+
+            var compareCity1 = city1.Count > 1 ? city1[util.SelectDuplicateCity(city1)] : city1[0];
+            var compareCity2 = city2.Count > 1 ? city2[util.SelectDuplicateCity(city2)] : city2[0];
+
+            return compareCity1.Population > compareCity2.Population
+                ? new Tuple<string, int, int>(compareCity1.CityName, compareCity1.Population,
+                      compareCity2.Population)
+                : new Tuple<string, int, int>(compareCity2.CityName, compareCity2.Population,
+                      compareCity1.Population);
         }
 
         /// <summary>
@@ -77,14 +87,14 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="city">The city to locate</param>
         /// <param name="province">The province in which the given city is</param>
-        public void ShowCityOnMap(string city, string province) //*************  UNTESTED  *************
+        public void ShowCityOnMap(string city, string province)
         {
             int id = CityCatalogue.First(cityInfo => string.Equals(cityInfo.Value.CityName, city, StringComparison.CurrentCultureIgnoreCase) &&
                                                                   string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase)).Key;
 
             string uri = $"https://www.latlong.net/c/?lat={CityCatalogue[id].Latitude}&long={CityCatalogue[id].Longitude}";
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { UseShellExecute = true, FileName = uri });
-        }//ShowCityOnMap
+        }
 
         /// <summary>
         /// Returns the distance in Kilometers between the two given city,provinces
@@ -103,7 +113,7 @@ namespace _5101_Project_1
             int cityTwo = CityCatalogue.First(cityInfo => string.Equals(cityInfo.Value.CityName, cityB, StringComparison.CurrentCultureIgnoreCase) &&
                                                                string.Equals(cityInfo.Value.Province, provinceB, StringComparison.CurrentCultureIgnoreCase)).Key;
 
-            double distance =  GetDistance(CityCatalogue[cityOne].Latitude, CityCatalogue[cityOne].Longitude, CityCatalogue[cityTwo].Latitude, CityCatalogue[cityTwo].Longitude);
+            double distance = GetDistance(CityCatalogue[cityOne].Latitude, CityCatalogue[cityOne].Longitude, CityCatalogue[cityTwo].Latitude, CityCatalogue[cityTwo].Longitude);
             return Math.Round(distance, 0, MidpointRounding.AwayFromZero);
         }
 
@@ -116,9 +126,9 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province">The province to total the population of</param>
         /// <returns>The total population</returns>
-        public int DisplayProvincePopulation(string province) 
+        public int DisplayProvincePopulation(string province)
         {
-            return CityCatalogue.Where(cityInfo => 
+            return CityCatalogue.Where(cityInfo =>
                 string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase))
                 .Sum(cityInfo => cityInfo.Value.Population);
         }
@@ -128,10 +138,11 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province">The province to get a list of all cities from</param>
         /// <returns>A list of strings consisting of all the cities in the given province</returns>
-        public List<String> DisplayProvinceCities(string province) //*************  UNTESTED  *************
+        public List<String> DisplayProvinceCities(string province)
         {
-            return (from cityInfo in CityCatalogue where string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase) 
-                select cityInfo.Value.CityName).ToList();
+            return (from cityInfo in CityCatalogue
+                    where string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase)
+                    select cityInfo.Value.CityName).ToList();
         }
 
         /// <summary>
@@ -150,11 +161,11 @@ namespace _5101_Project_1
                 //IF - pop already exists: Adds one to pop
                 if (!retSortedDictionary.ContainsKey(totalPop))
                 {
-                    retSortedDictionary.Add(totalPop,prov);
+                    retSortedDictionary.Add(totalPop, prov);
                 }
                 else
                 {
-                    retSortedDictionary.Add(totalPop +1, prov);
+                    retSortedDictionary.Add(totalPop + 1, prov);
                 }
             }
             return retSortedDictionary;
@@ -224,7 +235,7 @@ namespace _5101_Project_1
         /// <returns>the given number in radians</returns>
         private decimal DegreeToRads(decimal deg)
         {
-            return deg * (decimal) (Math.PI / 180);
+            return deg * (decimal)(Math.PI / 180);
         }
 
         /// <summary>
@@ -235,7 +246,5 @@ namespace _5101_Project_1
         {
             return CityCatalogue.Select(c => c.Value.Province).Distinct();
         }
-
-
     }//class
 }//ns
