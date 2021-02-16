@@ -105,21 +105,57 @@ namespace _5101_Project_1
                     bool isDone = false;
                     // Get city name
                     while (!isDone) {
+
                         Console.Write("Enter a city name: ");
                         String city = Console.ReadLine();
 
+                        List<CityInfo> info;
+                        try {
+                            info = stats.DisplayCityInformation(city);
+                        }
+                        catch (Exception ex) {
+                            Console.WriteLine("Invalid city, please try again: " + ex.Message);
+                            continue;
+                        }
 
-                        List<CityInfo> info = stats.DisplayCityInformation(city);
-                        if (info.Count == 0) {
-                            Console.WriteLine("Invalid city, please try again.\n");
+                        int citySelection = 0;
+                        if (info.Count > 1) {
+                            bool isSelected = false;
+                            while (!isSelected) {
+                                // Select between two cities
+                                Console.WriteLine("Please choose which " + city + " by typeing the associated number: ");
+                                int count = 1;
+                                foreach (CityInfo c in info) {
+                                    Console.WriteLine(count + ". City: " + c.CityName + " Province: " + c.Province);
+                                    ++count;
+                                }
+
+                                String num = Console.ReadLine();
+
+                                // Check if we got a number
+                                try {
+                                    querySelection = Int32.Parse(num);
+                                    if (querySelection < 0 || querySelection > info.Count) {
+                                        Console.WriteLine("Invalid Input: selection out of range");
+                                    }
+                                    else {
+                                        isSelected = true;
+                                    }
+                                }
+                                catch (Exception ex) {
+                                    Console.WriteLine("Invalid Input: " + ex.Message);
+                                    continue;
+                                }
+
+                                citySelection = querySelection - 1;
+                                // Make the seleciton and display the popultation
+                            }
                         }
-                        else {
-                            Console.WriteLine("\tName" + info[0].CityName);
-                            Console.WriteLine("\tPopulation: " + info[0].Population);
-                            Console.WriteLine("\tLocation: " + info[0].GetLocation() + "\n");
-                            isDone = true;
-                            isReset = true;
-                        }
+                        Console.WriteLine("\tName" + info[citySelection].CityName);
+                        Console.WriteLine("\tPopulation: " + info[citySelection].Population);
+                        Console.WriteLine("\tLocation: " + info[citySelection].GetLocation() + "\n");
+                        isDone = true;
+                        isReset = true;
                     }
                 }
 
