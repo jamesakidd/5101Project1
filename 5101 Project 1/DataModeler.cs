@@ -94,13 +94,13 @@ namespace _5101_Project_1
         {
             switch (type)
             {
-                case "csv":
+                case ".csv":
                     ParseCSV(filename);
                     break;
-                case "json":
+                case ".json":
                     ParseJSON(filename);
                     break;
-                case "xml":
+                case ".xml":
                     ParseXML(filename);
                     break;
                 default:
