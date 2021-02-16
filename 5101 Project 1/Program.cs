@@ -216,6 +216,24 @@ namespace _5101_Project_1
                     }
                 }
 
+
+                // **************************************************************************** //
+                // ************************ Rank Provinces By Population ********************************** //
+                // **************************************************************************** //
+                if (querySelection == 8) {
+                    bool isDone = false;
+                    while (!isDone) {
+                        Console.Write("Here are all the provinces ranked by population: ");
+                        SortedDictionary<int, string> prov = stats.RankProvincesByPopulation();
+                        foreach (var p in prov)
+                        {
+                            Console.WriteLine("Province: " + p.Value + ": " + p.Key);
+                        }
+                        Console.WriteLine();
+                        isDone = true;
+                    }
+                }
+
                 // ************************** //
                 // ******** Exit Program **** //
                 // ************************** //
