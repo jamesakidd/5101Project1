@@ -26,72 +26,20 @@ namespace _5101_Project_1
             Console.WriteLine("Fetching list of available file names to be processed and queried...\n");
             Console.WriteLine(util.GetFiles());
 
-            bool isReset = false;
+            // Prmopt the user to choose what type of file they would like to parse
+            // And then create the catalogue
+            int catalogueSelection = util.GetCatalogueSelection();
+            Statistics stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
+            Console.WriteLine("A city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file.\n");
+            Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file.\n");
 
-            while (!isReset) {
-
-                // Validate which type of file we want to parse
-                Console.Write("Select an option from the list above (e.g. 1, 2,): ");
-                bool isValid = false;
-                int selection = 0;
-                while (!isValid) {
-
-                    // Read input
-                    string input = Console.ReadLine();
-
-                    // Check if we got a number
-                    try {
-                        selection = Int32.Parse(input);
-                    }
-                    catch (Exception ex) {
-                        Console.WriteLine("Invalid Input: " + ex.Message);
-                        continue;
-                    }
-
-                    // Check if number is in range
-                    if (selection < 1 || selection > util.files.Length) {
-                        Console.WriteLine("Invalid Input: selection is not in range");
-                    }
-                    else {
-                        isValid = true;
-                    }
-                }
-
-                // Create the catalogue 
-                Statistics stats = new Statistics(util.files[selection - 1].FullName, util.files[selection - 1].Extension);
-                Console.WriteLine("A city catalogue has now been populated from the " + util.files[selection - 1].Name + " file.\n");
-
-                // Ask what type of query we want to run on the catalogue
-                Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[selection - 1].Name + " file.\n");
-                Console.WriteLine(util.DisplayQueries());
+            // Prompt the user for what type of query they would like to run
+            bool programIsDone = false;
+            while (!programIsDone) {
 
 
-                // Validate query input
-                isValid = false;
-                int querySelection = 0;
-                while (!isValid) {
+                int querySelection = util.GetQuerySelection(catalogueSelection);
 
-                    // Read input
-                    Console.Write("Select a data query routine from the list above for the " + util.files[selection - 1].Name + " file (e.g. 1, 2,): ");
-                    string input = Console.ReadLine();
-
-                    // Check if we got a number
-                    try {
-                        querySelection = Int32.Parse(input);
-                    }
-                    catch (Exception ex) {
-                        Console.WriteLine("Invalid Input: " + ex.Message);
-                        continue;
-                    }
-
-                    // Check if number is in range
-                    if (querySelection < 1 || querySelection > 7) {
-                        Console.WriteLine("Invalid Input: selection is not in range");
-                    }
-                    else {
-                        isValid = true;
-                    }
-                }
 
                 // ******************************************************* //
                 // ********** Query Selection **************************** //
@@ -118,6 +66,11 @@ namespace _5101_Project_1
                             continue;
                         }
 
+                        if (info.Count <= 0) {
+                            Console.WriteLine("Invalid city, please try again\n");
+                            continue;
+                        }
+
                         int citySelection = 0;
                         if (info.Count > 1) {
                             citySelection = util.SelectDuplicateCity(info);
@@ -126,7 +79,6 @@ namespace _5101_Project_1
                         Console.WriteLine("\tPopulation: " + info[citySelection].Population);
                         Console.WriteLine("\tLocation: " + info[citySelection].GetLocation() + "\n");
                         isDone = true;
-                        isReset = true;
                     }
                 }
 
@@ -151,11 +103,14 @@ namespace _5101_Project_1
                                 Console.WriteLine("\t" + c);
                             }
                             isDone = true;
-                            isReset = true;
+                            continue;
                         }
                     }
                 }
-                // Calculate Province Population
+
+                // ***************************************** //
+                // ********* Display Province Population**** //
+                // ***************************************** //
                 if (querySelection == 3) {
 
                     bool isDone = false;
@@ -175,7 +130,6 @@ namespace _5101_Project_1
                         else {
                             Console.WriteLine("The province of " + province + " has a population of " + population + "\n");
                             isDone = true;
-                            isReset = true;
                         }
                     }
                 }
@@ -205,7 +159,6 @@ namespace _5101_Project_1
                         Console.WriteLine("Largest city: + largerCity.name (PLACEHOLDER)");
                         Console.WriteLine("Population: + largerCity.population (PLACEHOLDER)\n");
                         isDone = true;
-                        isReset = true;
                     }
                 }
 
@@ -227,7 +180,6 @@ namespace _5101_Project_1
                         double distance = stats.CalculateDistanceBetweenCities(cities[0].Trim(), cities[1].Trim(), cities[2].Trim(), cities[3].Trim());
                         Console.WriteLine($"\nDistance between {cities[0]}, {cities[1]} and {cities[2]}, {cities[3]} is {distance} Kilometers\n");
                         isDone = true;
-                        isReset = true;
                     }
                 }
 
@@ -261,13 +213,20 @@ namespace _5101_Project_1
                         }
 
                         isDone = true;
-                        isReset = true;
                     }
+                }
 
+                // ************************** //
+                // ******** Exit Program **** //
+                // ************************** //
+                if (querySelection == 0)
+                {
+                    programIsDone = true;
                 }
             }
             Console.WriteLine("Exiting Program...");
         }
+
     }
 }
 
