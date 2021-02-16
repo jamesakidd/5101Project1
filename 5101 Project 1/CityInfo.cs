@@ -18,7 +18,8 @@ namespace _5101_Project_1
         public decimal Latitude { get; set; } // " lat "
         [JsonProperty("lng")]
         public decimal Longitude { get; set; } // " lng "
-        public bool IsCapital { get; set; } = false; // **************** NOT LISTED IN THE PROJECT DOC - NEED TO FIND OUT IF THIS IS ALLOWED ****************
+        [JsonProperty("capital")]
+        public string Capital { get; set; } // **************** NOT LISTED IN THE PROJECT DOC - NEED TO FIND OUT IF THIS IS ALLOWED ****************
 
         //cities that are capitals of their province are marked with the string " admin " in the " capital " column. 
 

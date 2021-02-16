@@ -36,9 +36,7 @@ namespace _5101_Project_1
                 //city.Country = cityData[4]; country is not tracked
                 city.Province = nodeData[5].InnerText; ;
 
-                //if the capital is empty string in the file it does not denote a capital
-                if (nodeData[6].InnerText == "admin")
-                    city.IsCapital = true;
+                city.Capital = nodeData[6].InnerText;
                 city.Population = int.Parse(nodeData[7].InnerText);
                 city.CityID = int.Parse(nodeData[8].InnerText);
 
@@ -83,11 +81,7 @@ namespace _5101_Project_1
                 city.Longitude = decimal.Parse(cityData[3]);
                 //city.Country = cityData[4]; country is not tracked
                 city.Province = cityData[5];
-
-                //if the capital is empty string in the file it does not denote a capital
-                if (cityData[6] == "admin")
-                    city.IsCapital = true;
-                
+                city.Capital = cityData[6];
                 city.Population = int.Parse(cityData[7]);
                 city.CityID = int.Parse(cityData[8]);
 
