@@ -56,6 +56,70 @@ namespace _5101_Project_1
             return str;
         }
 
+        // Gets input from user and returns an approprate catalogue
+        public int GetCatalogueSelection()
+        {
+            int selection = 0;
+            bool isSelectedFileType = false;
+            //Statistics stats;
+            while (!isSelectedFileType) {
+
+                Console.Write("Select an option from the list above (e.g. 1, 2,): ");
+                // Read input
+                String input = Console.ReadLine();
+
+                // Check if we got a number
+                try {
+                    selection = Int32.Parse(input);
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Invalid Input: " + ex.Message);
+                    continue;
+                }
+
+                // Check if number is in range
+                if (selection < 1 || selection > files.Length) {
+                    Console.WriteLine("Invalid Input: selection is not in range");
+                }
+                else {
+                    isSelectedFileType = true;
+                }
+            }
+            return selection - 1; // minus 1 to account for indexing
+        }
+
+        public int GetQuerySelection(int catalogueSelection)
+        {
+            int querySelection = 0;
+            bool isValidQueryInput = false;
+            while (!isValidQueryInput) {
+
+                Console.WriteLine(DisplayQueries());
+
+                // Read input
+                Console.Write("Select a data query routine from the list above for the " + files[catalogueSelection].Name + " file (e.g. 1, 2,): ");
+                string input = Console.ReadLine();
+                // Check if we got a number
+                try {
+                    querySelection = Int32.Parse(input);
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Invalid Input: " + ex.Message);
+                    continue;
+                }
+
+                // Check if number is in range
+                if (querySelection < 0 || querySelection > 7) {
+                    Console.WriteLine("Invalid Input: selection is not in range");
+                }
+                else {
+                    isValidQueryInput = true;
+                }
+            }
+            return querySelection;
+        }
+
+
         // Display queries
         public String DisplayQueries()
         {
@@ -67,6 +131,7 @@ namespace _5101_Project_1
             str += "5) Distance Between Cities\n";
             str += "6) Display city on map\n";
             str += "7) Restart Program And Choose Another File Or File Type To Query\n";
+            str += "0) Exit Program\n";
             return str;
         }
 
