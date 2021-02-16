@@ -16,7 +16,6 @@ namespace _5101_Project_1
 
         // File names
         public FileInfo[] files;
-        // File exts
 
         // Prints the title
         public String PrintTitle()
@@ -37,7 +36,8 @@ namespace _5101_Project_1
             str += "- To exit program, enter 'exit' at any prompt.\n";
             str += "- To start program from the begining enter 'restart' at any prompt.\n";
             str += "- You will be presented with a numbered list of options.\n";
-            str += "  Please enter a value, when prompted, to a coresponding file name, file type or data query routine.\n";
+            str +=
+                "  Please enter a value, when prompted, to a coresponding file name, file type or data query routine.\n";
             return str;
         }
 
@@ -52,7 +52,7 @@ namespace _5101_Project_1
                 str += count + ") " + f.Name + "\n";
                 ++count;
             }
-            
+
             return str;
         }
 
@@ -68,6 +68,43 @@ namespace _5101_Project_1
             str += "6) Display city on map\n";
             str += "7) Restart Program And Choose Another File Or File Type To Query\n";
             return str;
+        }
+
+        // Select Duplicate City
+        // Accepts a list of cities, these cities should be duplicate names
+        // It will prompt the user for 
+        public int SelectDuplicateCity(List<CityInfo> cities)
+        {
+            int citySelection = 0;
+            bool isSelected = false;
+            while (!isSelected) {
+
+                // Select between two cities
+                Console.WriteLine("Please choose which " + cities[0].CityName + " by typeing the associated number: ");
+                int count = 1;
+                foreach (CityInfo c in cities) {
+                    Console.WriteLine(count + ". City: " + c.CityName + " Province: " + c.Province);
+                    ++count;
+                }
+
+                String num = Console.ReadLine();
+
+                // Check if we got a number
+                try {
+                    citySelection = Int32.Parse(num);
+                    if (citySelection < 0 || citySelection > cities.Count) {
+                        Console.WriteLine("Invalid Input: selection out of range");
+                    }
+                    else {
+                        isSelected = true;
+                    }
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Invalid Input: " + ex.Message);
+                    continue;
+                }
+            }
+            return citySelection - 1;
         }
     }
 }
