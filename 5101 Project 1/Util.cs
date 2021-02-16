@@ -65,7 +65,8 @@ namespace _5101_Project_1
             str += "3) Calculate Province Population\n";
             str += "4) Match Cities Population\n";
             str += "5) Distance Between Cities\n";
-            str += "6) Restart Program And Choose Another File Or File Type To Query\n";
+            str += "6) Display city on map\n";
+            str += "7) Restart Program And Choose Another File Or File Type To Query\n";
             return str;
         }
     }

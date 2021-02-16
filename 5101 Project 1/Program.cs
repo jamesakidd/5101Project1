@@ -85,7 +85,7 @@ namespace _5101_Project_1
                     }
 
                     // Check if number is in range
-                    if (querySelection < 1 || querySelection > 6) {
+                    if (querySelection < 1 || querySelection > 7) {
                         Console.WriteLine("Invalid Input: selection is not in range");
                     }
                     else {
@@ -227,8 +227,40 @@ namespace _5101_Project_1
                 // **************************************************************************** //
                 // ******** Restart Program And Choose Another File or File Type To Querys **** //
                 // **************************************************************************** //
-                if (querySelection == 6) {
+                if (querySelection == 7) {
                     Console.WriteLine("Resetting...\n");
+                }
+
+                // **************************************************************************** //
+                // ************************ Show city on map ********************************** //
+                // **************************************************************************** //
+                if (querySelection == 6)
+                {
+                    bool isDone = false;
+                    while (!isDone)
+                    {
+                        Console.Write("Enter a city name and province, separated by a comma. (eg. London, Ontario)");
+                        string input = Console.ReadLine();
+                        string[] cities = input.Split(",");
+                        string city = cities[0];
+                        string province = cities[1];
+                        if (cities.Length < 2)
+                        {
+                            Console.WriteLine("Invalid input, please try again.\n");
+                            continue;
+                        }
+                        try
+                        {
+                            stats.ShowCityOnMap(city, province);
+                        }catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                        
+                        isDone = true;
+                        isReset = true;
+                    }
+                    
                 }
             }
             Console.WriteLine("Exiting Program...");

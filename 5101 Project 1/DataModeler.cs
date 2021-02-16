@@ -59,10 +59,17 @@ namespace _5101_Project_1
 
         public void ParseCSV(string fileName)
         {
+            bool isTitleLine = true;
+
             //get all lines from the file
             List<string> lines = new List<string>(File.ReadAllLines(fileName));
             foreach (string line in lines)
             {
+                if (isTitleLine)
+                {
+                    isTitleLine = false;
+                    continue;
+                }
                 //get the data on each line delimited by comma ','
                 List<string> cityData = new List<string>(line.Split(","));
 
