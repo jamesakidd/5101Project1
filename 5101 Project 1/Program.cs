@@ -55,7 +55,14 @@ namespace _5101_Project_1
                     while (!isDone) {
 
                         Console.Write("Enter a city name: ");
-                        String city = Console.ReadLine();
+                        String city = Console.ReadLine().Trim(' ');
+
+                        // Check if empty string
+                        if (city.Length == 0)
+                        {
+                            Console.WriteLine("Invalid city, please try again\n");
+                            continue;
+                        }
 
                         List<CityInfo> info;
                         try {
@@ -66,7 +73,7 @@ namespace _5101_Project_1
                             continue;
                         }
 
-                        if (info.Count <= 0) {
+                        if (info.Count <= 0 ) {
                             Console.WriteLine("Invalid city, please try again\n");
                             continue;
                         }
@@ -209,7 +216,7 @@ namespace _5101_Project_1
                             stats.ShowCityOnMap(city, province);
                         }
                         catch (Exception ex) {
-                            Console.WriteLine(ex.Message);
+                            Console.WriteLine("Invalid input: " + ex.Message);
                         }
 
                         isDone = true;
