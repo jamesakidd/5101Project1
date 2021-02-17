@@ -325,20 +325,21 @@ namespace _5101_Project_1
                 // **************************************************************************** //
                 // ************************ Show city with smallest population ***************** //
                 // **************************************************************************** //
-                if (querySelection == 11) {
+                if (querySelection == 11)
+                {
                     bool isDone = false;
-
                     while (!isDone)
                     {
                         Console.Write("Enter a province to get the city with the smallest population: ");
-
                         string province = Console.ReadLine();
 
-                        try {
-                            stats.DisplaySmallestPopulationCity(province);
+                        try
+                        {
+                            Console.WriteLine($"City with Smallest population in {province}: {stats.DisplaySmallestPopulationCity(province)}");
                             isDone = true;
                         }
-                        catch (Exception ex) {
+                        catch (Exception ex)
+                        {
                             Console.WriteLine("Invalid province, please try again: " + ex.Message);
                             continue;
                         }
@@ -348,20 +349,21 @@ namespace _5101_Project_1
                 // **************************************************************************** //
                 // ************************ Show city with largest population ***************** //
                 // **************************************************************************** //
-                if (querySelection == 12) {
+                if (querySelection == 12)
+                {
                     bool isDone = false;
-
                     while (!isDone)
                     {
                         Console.Write("Enter a province to get the city with the largest population: ");
-
                         string province = Console.ReadLine();
 
-                        try {
-                            stats.DisplayLargestPopulationCity(province);
+                        try
+                        {
+                            Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province)}");
                             isDone = true;
                         }
-                        catch (Exception ex) {
+                        catch (Exception ex)
+                        {
                             Console.WriteLine("Invalid province, please try again: " + ex.Message);
                             continue;
                         }
