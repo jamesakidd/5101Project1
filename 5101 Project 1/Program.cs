@@ -288,7 +288,7 @@ namespace _5101_Project_1
                     bool isDone = false;
                     while (!isDone)
                     {
-                        Console.Write("Enter a province to get the city with the smallest population");
+                        Console.Write("Enter a province to get the city with the smallest population: ");
                         string province = Console.ReadLine();
 
                         try
@@ -312,7 +312,7 @@ namespace _5101_Project_1
                     bool isDone = false;
                     while (!isDone)
                     {
-                        Console.Write("Enter a province to get the city with the largest population");
+                        Console.Write("Enter a province to get the city with the largest population: ");
                         string province = Console.ReadLine();
 
                         try
