@@ -234,6 +234,26 @@ namespace _5101_Project_1
                     }
                 }
 
+                // **************************************************************************** //
+                // ************************ Show province cities ********************************** //
+                // **************************************************************************** //
+                if (querySelection == 9) {
+                    bool isDone = false;
+                    while (!isDone) {
+                        Console.Write("Here are all the provinces, ranked by number of cities");
+                        SortedDictionary<int, string> prov = stats.RankProvincesByCities();
+                        foreach (var p in prov) {
+                            Console.WriteLine("Province: " + p.Value + ": " + p.Key);
+                        }
+                        // validate province input
+
+                        Console.WriteLine();
+                        isDone = true;
+                    }
+                }
+
+
+
                 // ************************** //
                 // ******** Exit Program **** //
                 // ************************** //
