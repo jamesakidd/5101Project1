@@ -30,8 +30,8 @@ namespace _5101_Project_1
             // And then create the catalogue
             int catalogueSelection = util.GetCatalogueSelection();
             Statistics stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
-            Console.WriteLine("A city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file.\n");
-            Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file.\n");
+            Console.WriteLine("\nA city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file...");
+            Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file...\n");
 
             // Prompt the user for what type of query they would like to run
             bool programIsDone = false;
@@ -42,6 +42,14 @@ namespace _5101_Project_1
                 // ******************************************************* //
                 // ********** Query Selection **************************** //
                 // ******************************************************* //
+
+
+                // ******************** //
+                // *** Exit Program *** //
+                // ******************** //
+                if (querySelection == 0) {
+                    programIsDone = true;
+                }
 
                 // ************************************* //
                 // ********** CITY INFO **************** //
@@ -139,7 +147,7 @@ namespace _5101_Project_1
                 }
 
                 // ************************************* //
-                // ******** Match Cities Population **** //
+                // *** 4. Match Cities Population **** //
                 // ************************************* //
                 if (querySelection == 4) {
 
@@ -178,7 +186,7 @@ namespace _5101_Project_1
                 }
 
                 // ************************************* //
-                // ******** Distance Between Cities **** //
+                // *** 5. Distance Between Cities *** //
                 // ************************************* //
                 if (querySelection == 5) {
                     bool isDone = false;
@@ -216,7 +224,7 @@ namespace _5101_Project_1
                 }
 
                 // **************************************************************************** //
-                // ************************ Show city on map ********************************** //
+                // *** 6. Show city on map *** //
                 // **************************************************************************** //
                 if (querySelection == 6) {
                     bool isDone = false;
@@ -253,27 +261,12 @@ namespace _5101_Project_1
                     }
                 }
 
-                // **************************************************************************** //
-                // ******** Restart Program And Choose Another File or File Type To Querys **** //
-                // **************************************************************************** //
+
+
+                // *************************************** //
+                // *** 7. Rank Provinces By Population *** //
+                // *************************************** //
                 if (querySelection == 7) {
-
-                    Console.WriteLine("Resetting...\n");
-
-                    // Get a list of all the files
-                    Console.WriteLine("Fetching list of available file names to be processed and queried...\n");
-                    Console.WriteLine(util.GetFiles());
-
-                    catalogueSelection = util.GetCatalogueSelection();
-                    stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
-                    Console.WriteLine("A city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file.\n");
-                    Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file.\n");
-                }
-
-                // **************************************************************************** //
-                // ************************ Rank Provinces By Population ********************************** //
-                // **************************************************************************** //
-                if (querySelection == 8) {
                     bool isDone = false;
                     while (!isDone) {
                         Console.WriteLine("Here are all the provinces ranked by population (lowest to highest): ");
@@ -286,10 +279,10 @@ namespace _5101_Project_1
                     }
                 }
 
-                // **************************************************************************** //
-                // ************************ Show province cities ********************************** //
-                // **************************************************************************** //
-                if (querySelection == 9) {
+                // ******************************* //
+                // *** 8. Show province cities *** //
+                // ******************************* //
+                if (querySelection == 8) {
                     bool isDone = false;
                     while (!isDone) {
                         Console.WriteLine("Here are all the provinces, ranked by number of cities (lowest to highest): ");
@@ -302,10 +295,10 @@ namespace _5101_Project_1
                     }
                 }
 
-                // ******************************* //
-                // *** Get Capital Of Province *** //
-                // ******************************* //
-                if (querySelection == 10) {
+                // ********************************** //
+                // *** 9. Get Capital Of Province *** //
+                // ********************************** //
+                if (querySelection == 9) {
                     bool isDone = false;
                     while (!isDone) {
                         Console.Write("Input the name of the province you want to find the capital of: ");
@@ -332,11 +325,10 @@ namespace _5101_Project_1
                     }
                 }
 
-                // **************************************************************************** //
-                // ************************ Show city with smallest population ***************** //
-                // **************************************************************************** //
-                if (querySelection == 11)
-                {
+                // ************************************************************ //
+                // *** 10. Show city with smallest population ***************** //
+                // ************************************************************ //
+                if (querySelection == 10) {
                     bool isDone = false;
 
                     while (!isDone) {
@@ -363,10 +355,10 @@ namespace _5101_Project_1
                     }
                 }
 
-                // **************************************************************************** //
-                // ************************ Show city with largest population ***************** //
-                // **************************************************************************** //
-                if (querySelection == 12) {
+                // ********************************************* //
+                // *** 11. Show city with largest population *** //
+                // ********************************************* //
+                if (querySelection == 11) {
 
                     bool isDone = false;
                     while (!isDone) {
@@ -386,19 +378,29 @@ namespace _5101_Project_1
                             Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province).CityName}");
                             isDone = true;
                         }
-                        catch (Exception ex)
-                        {
+                        catch (Exception ex) {
                             Console.WriteLine("Invalid province, please try again: " + ex.Message);
                         }
                     }
                 }
 
-                // ******************** //
-                // *** Exit Program *** //
-                // ******************** //
-                if (querySelection == 0) {
-                    programIsDone = true;
+                // *************************************************************************** //
+                // *** 12. Restart Program And Choose Another File or File Type To Querys **** //
+                // *************************************************************************** //
+                if (querySelection == 12) {
+
+                    Console.WriteLine("Resetting...\n");
+
+                    // Get a list of all the files
+                    Console.WriteLine("Fetching list of available file names to be processed and queried...\n");
+                    Console.WriteLine(util.GetFiles());
+
+                    catalogueSelection = util.GetCatalogueSelection();
+                    stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
+                    Console.WriteLine("A city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file.\n");
+                    Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file.\n");
                 }
+
             }
             Console.WriteLine("Exiting Program...");
         }

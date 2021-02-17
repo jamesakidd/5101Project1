@@ -16,15 +16,16 @@ namespace _5101_Project_1
 
         // File names
         public FileInfo[] files;
+        public const string LINE = "--------------------------------------------------------------------------------\n";
 
         // Prints the title
         public String PrintTitle()
         {
             string str = "";
             // Print Title
-            str += "---------------------\n";
+            str += LINE;
             str += "Program functionality\n";
-            str += "---------------------\n\n";
+            str += LINE;
             return str;
         }
 
@@ -33,11 +34,10 @@ namespace _5101_Project_1
         {
             string str = "";
             // Print Title
-            str += "- To exit program, enter 'exit' at any prompt.\n";
-            str += "- To start program from the begining enter 'restart' at any prompt.\n";
-            str += "- You will be presented with a numbered list of options.\n";
-            str +=
-                "  Please enter a value, when prompted, to a coresponding file name, file type or data query routine.\n";
+            str += "\t- To exit program, enter 'exit' at any prompt.\n";
+            str += "\t- To start program from the begining enter 'restart' at any prompt.\n";
+            str += "\t- You will be presented with a numbered list of options.\n";
+            str += "\t- When prompted, Enter a corrispoiding filename, filetype or query\n\n";
             return str;
         }
 
@@ -49,7 +49,7 @@ namespace _5101_Project_1
             string str = "";
             int count = 1;
             foreach (var f in files) {
-                str += count + ") " + f.Name + "\n";
+                str += "\t" + count + ") " + f.Name + "\n";
                 ++count;
             }
 
@@ -123,20 +123,23 @@ namespace _5101_Project_1
         // Display queries
         public String DisplayQueries()
         {
-            String str = "";
-            str += "1) Display City Information\n";
-            str += "2) Display Province Cities\n";
-            str += "3) Calculate Province Population\n";
-            str += "4) Match Cities Population\n";
-            str += "5) Distance Between Cities\n";
-            str += "6) Display city on map\n";
-            str += "7) Restart Program And Choose Another File Or File Type To Query\n";
-            str += "8) Rank Provinces by Population\n";
-            str += "9) Rank Provinces by Cities\n";
-            str += "10) Get Capital of Province\n";
-            str += "11) City with Smallest Population\n";
-            str += "12) City with Largest Population\n";
-            str += "0) Exit Program\n";
+            String str = "\n";
+            str += LINE;
+            str += "\tQUERY ROUTINES\n";
+            str += LINE;
+            str += "\t 0) Exit Program\n";
+            str += "\t 1) Display City Information\n";
+            str += "\t 2) Display Province Cities\n";
+            str += "\t 3) Calculate Province Population\n";
+            str += "\t 4) Match Cities Population\n";
+            str += "\t 5) Distance Between Cities\n";
+            str += "\t 6) Display city on map\n";
+            str += "\t 7) Rank Provinces by Population\n";
+            str += "\t 8) Rank Provinces by Cities\n";
+            str += "\t 29) Get Capital of Province\n";
+            str += "\t10) City with Smallest Population\n";
+            str += "\t11) City with Largest Population\n";
+            str += "\t12) Restart Program And Choose Another File Or File Type To Query\n";
             return str;
         }
 
