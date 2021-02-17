@@ -259,14 +259,14 @@ namespace _5101_Project_1
                     while (!isDone) {
                         Console.Write("Input the name of the province you want to find the capital of: ");
                         String prov = Console.ReadLine();
-                        CityInfo city = stats.GetCapital(prov);
-                        if (city != null) {
-                            Console.WriteLine("The capital of " + prov + " is " + city.CityName);
-                            isDone = true;
-                        }
-                        else {
-                            Console.WriteLine("Error: invalid input, try again...");
-                        }
+                        //CityInfo city = stats.GetCapital(prov); *** UNCOMMENT WHEN FIXED
+                        //if (city != null) {
+                        //    Console.WriteLine("The capital of " + prov + " is " + city.CityName);
+                        //    isDone = true;
+                        //}
+                        //else {
+                        //    Console.WriteLine("Error: invalid input, try again...");
+                        //}
                     }
                 }
 
