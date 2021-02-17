@@ -353,7 +353,7 @@ namespace _5101_Project_1
 
                         // Wrap in try catch incase spelling errors or bad data
                         try {
-                            Console.WriteLine($"City with Smallest population in {province}: {stats.DisplaySmallestPopulationCity(province)}");
+                            Console.WriteLine($"City with Smallest population in {province}: {stats.DisplaySmallestPopulationCity(province).CityName}");
                             isDone = true;
                         }
                         catch (Exception ex) {
@@ -383,7 +383,7 @@ namespace _5101_Project_1
 
                         // Wrap in try catch incase spelling errors or bad data
                         try {
-                            Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province)}");
+                            Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province).CityName}");
                             isDone = true;
                         }
                         catch (Exception ex)
