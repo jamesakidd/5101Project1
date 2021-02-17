@@ -238,7 +238,7 @@ namespace _5101_Project_1
                             continue;
                         }
 
-                        
+
                         string city = cities[0];
                         string province = cities[1];
 
@@ -311,13 +311,23 @@ namespace _5101_Project_1
                         Console.Write("Input the name of the province you want to find the capital of: ");
                         String prov = Console.ReadLine();
 
+                        // Remove whitespace
+                        prov = prov.Trim(' ');
+
+                        // Check if empty string
+                        if (prov.Length == 0) {
+                            Console.WriteLine("Invalid input, try again...");
+                            continue;
+                        }
+
+                        // Wrap in try catch incase spelling errors or bad data
                         try {
                             CityInfo city = stats.GetCapital(prov);
-                            Console.WriteLine("The capital of " + prov + " is " + city.CityName);
+                            Console.WriteLine("The capital of " + prov + " is " + city.CityName + "\n");
                             isDone = true;
                         }
-                        catch (Exception) {
-                            Console.WriteLine("Error: invalid input, try again...");
+                        catch (Exception ex) {
+                            Console.WriteLine("Error: could not find province, check spelling and try again - " + ex.Message);
                         }
                     }
                 }
@@ -328,20 +338,27 @@ namespace _5101_Project_1
                 if (querySelection == 11)
                 {
                     bool isDone = false;
-                    while (!isDone)
-                    {
-                        Console.Write("Enter a province to get the city with the smallest population: ");
-                        string province = Console.ReadLine();
 
-                        try
-                        {
+                    while (!isDone) {
+                        Console.Write("Enter a province to get the city with the smallest population: ");
+                        String province = Console.ReadLine();
+
+                        // Remove whitespace
+                        province = province.Trim(' ');
+
+                        // Check for empty string
+                        if (province.Length == 0) {
+                            Console.WriteLine("Invalid input, try again...");
+                        }
+
+                        // Wrap in try catch incase spelling errors or bad data
+                        try {
                             Console.WriteLine($"City with Smallest population in {province}: {stats.DisplaySmallestPopulationCity(province)}");
                             isDone = true;
                         }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine("Invalid province, please try again: " + ex.Message);
-                            continue;
+                        catch (Exception ex) {
+                            Console.WriteLine("Invalid province, check spelling and try again - " + ex.Message);
+
                         }
                     }
                 }
@@ -349,23 +366,29 @@ namespace _5101_Project_1
                 // **************************************************************************** //
                 // ************************ Show city with largest population ***************** //
                 // **************************************************************************** //
-                if (querySelection == 12)
-                {
+                if (querySelection == 12) {
+
                     bool isDone = false;
-                    while (!isDone)
-                    {
+                    while (!isDone) {
                         Console.Write("Enter a province to get the city with the largest population: ");
                         string province = Console.ReadLine();
 
-                        try
-                        {
+                        // Remove whitespace
+                        province = province.Trim(' ');
+
+                        // Check for empty string
+                        if (province.Length == 0) {
+                            Console.WriteLine("Invalid input, try again...");
+                        }
+
+                        // Wrap in try catch incase spelling errors or bad data
+                        try {
                             Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province)}");
                             isDone = true;
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine("Invalid province, please try again: " + ex.Message);
-                            continue;
                         }
                     }
                 }
