@@ -17,39 +17,47 @@ namespace _5101_Project_1
         {
             // Instantiate the util class
             Util util = new Util();
-
+            
             // Print the title and instructions
             Console.Write(util.PrintTitle());
             Console.Write(util.PrintInstructions());
 
-            // Get a list of all the files
-            Console.WriteLine("Fetching list of available file names to be processed and queried...\n");
-            Console.WriteLine(util.GetFiles());
+            
+            Statistics stats = default;
+            bool isResetCatalogue = true; // flag if we should reset the catalogue
+            bool isProgramDone = false;   // flag if the program is done
+            
+            while (!isProgramDone) { // Main program loop
 
-            // Prmopt the user to choose what type of file they would like to parse
-            // And then create the catalogue
-            int catalogueSelection = util.GetCatalogueSelection();
-            Statistics stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
-            Console.WriteLine("\nA city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file...");
-            Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file...\n");
+                int catalogueSelection = 0;
+                if (isResetCatalogue) {
 
-            // Prompt the user for what type of query they would like to run
-            bool programIsDone = false;
-            while (!programIsDone) {
+                    // Get what type of catalogue we want to build
+                    Console.WriteLine("Fetching list of available file names to be processed and queried...\n");
+                    Console.WriteLine(util.GetFiles());
+                    catalogueSelection = util.GetCatalogueSelection();
 
-                int querySelection = util.GetQuerySelection(catalogueSelection);
+                    // Check for exit
+                    if (catalogueSelection == -1) {
+                        isProgramDone = true;
+                        break;
+                    }
+                    // Check for reset
+                    if (catalogueSelection == -2)
+                    {
+                        isResetCatalogue = true;
+                        continue;
+                    }
 
-                // ******************************************************* //
-                // ********** Query Selection **************************** //
-                // ******************************************************* //
-
-
-                // ******************** //
-                // *** Exit Program *** //
-                // ******************** //
-                if (querySelection == 0) {
-                    programIsDone = true;
+                    // Create the catalogue
+                    stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
+                    Console.WriteLine("\nA city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file...");
+                    Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file...\n");
+                    
+                    // Reset the flag
+                    isResetCatalogue = false;
                 }
+                int querySelection = util.GetQuerySelection(catalogueSelection);
 
                 // ************************************* //
                 // ********** CITY INFO **************** //
@@ -67,6 +75,17 @@ namespace _5101_Project_1
                         if (city.Length == 0) {
                             Console.WriteLine("Invalid city, please try again\n");
                             continue;
+                        }
+
+                        // Test if we should exit
+                        if (city.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+
+                        if (city.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
                         }
 
                         List<CityInfo> info;
@@ -106,6 +125,17 @@ namespace _5101_Project_1
                         Console.Write("Enter a province name: ");
                         String province = Console.ReadLine().Trim(' ');
 
+                        // Test if we should reset
+                        if (province.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (province.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
+
                         List<String> cities = stats.DisplayProvinceCities(province);
                         if (cities.Count == 0) {
                             Console.WriteLine("Invalid province, please try again.\n");
@@ -114,8 +144,7 @@ namespace _5101_Project_1
                             foreach (var c in cities) {
                                 Console.WriteLine("\t" + c);
                             }
-                            isDone = true;
-                            continue;
+                            isDone = true; ;
                         }
                     }
                 }
@@ -131,6 +160,17 @@ namespace _5101_Project_1
                         // Get input
                         Console.Write("Enter a province name: ");
                         String province = Console.ReadLine().Trim(' ');
+
+                        // Test if we should reset
+                        if (province.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (province.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
 
                         // Validate input
                         int population = -1;
@@ -159,6 +199,17 @@ namespace _5101_Project_1
                         Console.Write("Enter two city names, seperated by a comma, to see which city has the larger population (eg. London, Toronto): ");
                         String input = Console.ReadLine();
 
+                        // Test if we should reset
+                        if (input.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (input.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
+
                         // Split into array
                         String[] cities = input.Split(",");
 
@@ -185,14 +236,25 @@ namespace _5101_Project_1
                     }
                 }
 
-                // ************************************* //
+                // ********************************** //
                 // *** 5. Distance Between Cities *** //
-                // ************************************* //
+                // ********************************** //
                 if (querySelection == 5) {
                     bool isDone = false;
                     while (!isDone) {
                         Console.Write("Enter two city, province pairs, seperated by a comma, to find the distance between them (eg. London, Ontario, Toronto, Ontario): ");
                         String input = Console.ReadLine();
+
+                        // Test if we should reset
+                        if (input.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (input.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
 
                         // Split into array
                         String[] cities = input.Split(",");
@@ -223,14 +285,25 @@ namespace _5101_Project_1
                     }
                 }
 
-                // **************************************************************************** //
+                // *************************** //
                 // *** 6. Show city on map *** //
-                // **************************************************************************** //
+                // *************************** //
                 if (querySelection == 6) {
                     bool isDone = false;
                     while (!isDone) {
                         Console.Write("Enter a city name and province, separated by a comma. (eg. London, Ontario): ");
                         string input = Console.ReadLine();
+
+                        // Test if we should reset
+                        if (input.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (input.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
 
                         // Splint into array
                         string[] cities = input.Split(",");
@@ -246,7 +319,6 @@ namespace _5101_Project_1
                             continue;
                         }
 
-
                         string city = cities[0];
                         string province = cities[1];
 
@@ -260,8 +332,6 @@ namespace _5101_Project_1
                         }
                     }
                 }
-
-
 
                 // *************************************** //
                 // *** 7. Rank Provinces By Population *** //
@@ -304,6 +374,17 @@ namespace _5101_Project_1
                         Console.Write("Input the name of the province you want to find the capital of: ");
                         String prov = Console.ReadLine();
 
+                        // Test if we should reset
+                        if (prov.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (prov.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
+
                         // Remove whitespace
                         prov = prov.Trim(' ');
 
@@ -337,6 +418,17 @@ namespace _5101_Project_1
 
                         // Remove whitespace
                         province = province.Trim(' ');
+
+                        // Test if we should reset
+                        if (province.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (province.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
 
                         // Check for empty string
                         if (province.Length == 0) {
@@ -373,6 +465,17 @@ namespace _5101_Project_1
                             Console.WriteLine("Invalid input, try again...");
                         }
 
+                        // Test if we should reset
+                        if (province.ToUpper().Equals("RESET")) {
+                            isResetCatalogue = true;
+                            break;
+                        }
+                        // Test if we should exit
+                        if (province.ToUpper().Equals("EXIT")) {
+                            isProgramDone = true;
+                            break;
+                        }
+
                         // Wrap in try catch incase spelling errors or bad data
                         try {
                             Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province).CityName}");
@@ -382,23 +485,6 @@ namespace _5101_Project_1
                             Console.WriteLine("Invalid province, please try again: " + ex.Message);
                         }
                     }
-                }
-
-                // *************************************************************************** //
-                // *** 12. Restart Program And Choose Another File or File Type To Querys **** //
-                // *************************************************************************** //
-                if (querySelection == 12) {
-
-                    Console.WriteLine("Resetting...\n");
-
-                    // Get a list of all the files
-                    Console.WriteLine("Fetching list of available file names to be processed and queried...\n");
-                    Console.WriteLine(util.GetFiles());
-
-                    catalogueSelection = util.GetCatalogueSelection();
-                    stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
-                    Console.WriteLine("A city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file.\n");
-                    Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file.\n");
                 }
 
             }

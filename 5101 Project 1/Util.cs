@@ -13,6 +13,7 @@ namespace _5101_Project_1
     {
         // Path
         private const string dataPath = @"..\..\..\Data";
+        
 
         // File names
         public FileInfo[] files;
@@ -56,9 +57,11 @@ namespace _5101_Project_1
             return str;
         }
 
+
         // Gets input from user and returns an approprate catalogue
         public int GetCatalogueSelection()
         {
+
             int selection = 0;
             bool isSelectedFileType = false;
             //Statistics stats;
@@ -67,6 +70,15 @@ namespace _5101_Project_1
                 Console.Write("Select an option from the list above (e.g. 1, 2,): ");
                 // Read input
                 String input = Console.ReadLine();
+
+                // check if we should reset
+                if (input.ToUpper().Equals("EXIT"))
+                {
+                    return -1;
+                }
+                if (input.ToUpper().Equals("RESET")) {
+                    return -2;
+                }
 
                 // Check if we got a number
                 try {
@@ -127,7 +139,6 @@ namespace _5101_Project_1
             str += LINE;
             str += "\tQUERY ROUTINES\n";
             str += LINE;
-            str += "\t 0) Exit Program\n";
             str += "\t 1) Display City Information\n";
             str += "\t 2) Display Province Cities\n";
             str += "\t 3) Calculate Province Population\n";
@@ -139,9 +150,11 @@ namespace _5101_Project_1
             str += "\t 29) Get Capital of Province\n";
             str += "\t10) City with Smallest Population\n";
             str += "\t11) City with Largest Population\n";
-            str += "\t12) Restart Program And Choose Another File Or File Type To Query\n";
+            str += "\nType \"reset\" to select a different data source\n";
+            str += "2Type \"exit\" to exit\n";
             return str;
         }
+
 
         // Select Duplicate City
         // Accepts a list of cities, these cities should be duplicate names
@@ -179,5 +192,7 @@ namespace _5101_Project_1
             }
             return citySelection - 1;
         }
+
+        
     }
 }
