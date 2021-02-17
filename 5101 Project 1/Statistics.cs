@@ -193,12 +193,12 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province">The province</param>
         /// <returns>Cityinfo for the province's capital</returns>
-        //public CityInfo GetCapital(string province) //*************  UNTESTED  *************
-        //{
-        //    return CityCatalogue.First(cityInfo =>
-        //        string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase) &&
-        //        cityInfo.Value.IsCapital).Value;
-        //}
+        public CityInfo GetCapital(string province) //*************  UNTESTED  *************
+        {
+            return CityCatalogue.First(cityInfo =>
+                string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase) &&
+                string.Equals(cityInfo.Value.Capital, "admin", StringComparison.CurrentCultureIgnoreCase)).Value;
+        }
 
 
 
