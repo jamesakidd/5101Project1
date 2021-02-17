@@ -7,6 +7,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace _5101_Project_1
 {
@@ -17,16 +19,15 @@ namespace _5101_Project_1
         {
             // Instantiate the util class
             Util util = new Util();
-            
+
             // Print the title and instructions
             Console.Write(util.PrintTitle());
             Console.Write(util.PrintInstructions());
 
-            
             Statistics stats = default;
             bool isResetCatalogue = true; // flag if we should reset the catalogue
             bool isProgramDone = false;   // flag if the program is done
-            
+
             while (!isProgramDone) { // Main program loop
 
                 int catalogueSelection = 0;
@@ -43,8 +44,7 @@ namespace _5101_Project_1
                         break;
                     }
                     // Check for reset
-                    if (catalogueSelection == -2)
-                    {
+                    if (catalogueSelection == -2) {
                         isResetCatalogue = true;
                         continue;
                     }
@@ -53,19 +53,29 @@ namespace _5101_Project_1
                     stats = new Statistics(util.files[catalogueSelection].FullName, util.files[catalogueSelection].Extension);
                     Console.WriteLine("\nA city catalogue has now been populated from the " + util.files[catalogueSelection].Name + " file...");
                     Console.WriteLine("Fetching list of available data querying routines that can be run on the " + util.files[catalogueSelection].Name + " file...\n");
-                    
+
                     // Reset the flag
                     isResetCatalogue = false;
                 }
                 int querySelection = util.GetQuerySelection(catalogueSelection);
 
-                // ************************************* //
-                // ********** CITY INFO **************** //
-                // ************************************* //
+                // Check for exit
+                if (querySelection == -1) {
+                    isProgramDone = true;
+                    break;
+                }
+                // Check for reset
+                if (querySelection == -2) {
+                    isResetCatalogue = true;
+                    continue;
+                }
+
+                // ******************** //
+                // *** 1. CITY INFO *** //
+                // ******************** //
                 if (querySelection == 1) {
 
                     bool isDone = false;
-                    // Get city name
                     while (!isDone) {
 
                         Console.Write("Enter a city name: ");
@@ -106,19 +116,18 @@ namespace _5101_Project_1
                         if (info.Count > 1) {
                             citySelection = util.SelectDuplicateCity(info);
                         }
-                        Console.WriteLine("\tName" + info[citySelection].CityName);
+                        Console.WriteLine("\tName: " + info[citySelection].CityName);
                         Console.WriteLine("\tPopulation: " + info[citySelection].Population);
                         Console.WriteLine("\tLocation: " + info[citySelection].GetLocation() + "\n");
                         isDone = true;
                     }
                 }
 
-                // ************************************* //
-                // ********* Display Province Cities**** //
-                // ************************************* //
+                // ********************************** //
+                // *** 2. Display Province Cities *** //
+                // ********************************** //
                 if (querySelection == 2) {
 
-                    // Get province name
                     bool isDone = false;
                     while (!isDone) {
 
@@ -141,17 +150,19 @@ namespace _5101_Project_1
                             Console.WriteLine("Invalid province, please try again.\n");
                         }
                         else {
+                            Console.WriteLine("\nThese are the cities in " + province + ": ");
                             foreach (var c in cities) {
-                                Console.WriteLine("\t" + c);
+                                Console.WriteLine("\t - " + c);
                             }
-                            isDone = true; ;
+                            isDone = true;
+                            ;
                         }
                     }
                 }
 
-                // ***************************************** //
-                // ********* Display Province Population**** //
-                // ***************************************** //
+                // ************************************** //
+                // *** 3. Display Province Population *** //
+                // ************************************** //
                 if (querySelection == 3) {
 
                     bool isDone = false;
@@ -231,7 +242,7 @@ namespace _5101_Project_1
                             isDone = true;
                         }
                         catch (Exception ex) {
-                            Console.WriteLine("Error: Could not find one or more cities, please check spelling and try again - " + ex.Message);
+                            Console.WriteLine("Error: Could not find one or more cities, please check spelling and try again - " + ex.Message + "\n");
                         }
                     }
                 }
@@ -339,10 +350,16 @@ namespace _5101_Project_1
                 if (querySelection == 7) {
                     bool isDone = false;
                     while (!isDone) {
-                        Console.WriteLine("Here are all the provinces ranked by population (lowest to highest): ");
+
+                        Console.WriteLine("Provinces sorted by population (high-low): ");
                         SortedDictionary<int, string> prov = stats.RankProvincesByPopulation();
-                        foreach (var p in prov) {
-                            Console.WriteLine("\t" + p.Value + ", population: " + p.Key);
+
+                        int count = 0;
+                        foreach (var p in prov.Reverse()) {
+
+                            string num = "\t" + count.ToString() + ". ";
+                            Console.WriteLine("{0,-5} {1,-25} pop: {2,10}", num, p.Value, p.Key.ToString("N0"));
+                            ++count;
                         }
                         Console.WriteLine();
                         isDone = true;
@@ -355,10 +372,16 @@ namespace _5101_Project_1
                 if (querySelection == 8) {
                     bool isDone = false;
                     while (!isDone) {
-                        Console.WriteLine("Here are all the provinces, ranked by number of cities (lowest to highest): ");
+                        
+                        Console.WriteLine("Provinces sorted by number of cities (high-low): ");
                         SortedDictionary<int, string> prov = stats.RankProvincesByCities();
-                        foreach (var p in prov) {
-                            Console.WriteLine("\t" + p.Value + ", " + p.Key);
+
+                        int count = 1;
+                        foreach (var p in prov.Reverse()) {
+
+                            string num = "\t" + count.ToString() + ". ";
+                            Console.WriteLine(string.Format("{0,-5} {1,-25} {2,10}", num, p.Value, p.Key.ToString("N0")));
+                            ++count;
                         }
                         Console.WriteLine();
                         isDone = true;
@@ -401,7 +424,7 @@ namespace _5101_Project_1
                             isDone = true;
                         }
                         catch (Exception ex) {
-                            Console.WriteLine("Error: could not find province, check spelling and try again - " + ex.Message);
+                            Console.WriteLine("Error: could not find province, check spelling and try again - " + ex.Message + "\n");
                         }
                     }
                 }
@@ -410,14 +433,20 @@ namespace _5101_Project_1
                 // *** 10. Show city with smallest population ***************** //
                 // ************************************************************ //
                 if (querySelection == 10) {
-                    bool isDone = false;
 
+                    bool isDone = false;
                     while (!isDone) {
                         Console.Write("Enter a province to get the city with the smallest population: ");
                         String province = Console.ReadLine();
 
                         // Remove whitespace
                         province = province.Trim(' ');
+
+                        // Check if empty string
+                        if (province.Length == 0) {
+                            Console.WriteLine("Invalid input, try again...");
+                            continue;
+                        }
 
                         // Test if we should reset
                         if (province.ToUpper().Equals("RESET")) {
@@ -441,7 +470,7 @@ namespace _5101_Project_1
                             isDone = true;
                         }
                         catch (Exception ex) {
-                            Console.WriteLine("Invalid province, check spelling and try again - " + ex.Message);
+                            Console.WriteLine("Invalid province, check spelling and try again - " + ex.Message + "\n");
 
                         }
                     }
