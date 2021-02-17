@@ -225,8 +225,7 @@ namespace _5101_Project_1
                     while (!isDone) {
                         Console.Write("Here are all the provinces ranked by population: ");
                         SortedDictionary<int, string> prov = stats.RankProvincesByPopulation();
-                        foreach (var p in prov)
-                        {
+                        foreach (var p in prov) {
                             Console.WriteLine("Province: " + p.Value + ": " + p.Key);
                         }
                         Console.WriteLine();
@@ -252,13 +251,29 @@ namespace _5101_Project_1
                     }
                 }
 
+                // ******************************* //
+                // *** Get Capital Of Province *** //
+                // ******************************* //
+                if (querySelection == 10) {
+                    bool isDone = false;
+                    while (!isDone) {
+                        Console.Write("Input the name of the province you want to find the capital of: ");
+                        String prov = Console.ReadLine();
+                        CityInfo city = stats.GetCapital(prov);
+                        if (city != null) {
+                            Console.WriteLine("The capital of " + prov + " is " + city.CityName);
+                            isDone = true;
+                        }
+                        else {
+                            Console.WriteLine("Error: invalid input, try again...");
+                        }
+                    }
+                }
 
-
-                // ************************** //
-                // ******** Exit Program **** //
-                // ************************** //
-                if (querySelection == 0)
-                {
+                // ******************** //
+                // *** Exit Program *** //
+                // ******************** //
+                if (querySelection == 0) {
                     programIsDone = true;
                 }
             }
