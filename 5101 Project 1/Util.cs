@@ -111,6 +111,17 @@ namespace _5101_Project_1
                 // Read input
                 Console.Write("Select a data query routine from the list above for the " + files[catalogueSelection].Name + " file (e.g. 1, 2,): ");
                 string input = Console.ReadLine();
+            
+                // Check for exit
+                if (input.ToUpper().Equals("EXIT"))
+                {
+                    return -1;
+                }
+                // Check for reset
+                if (input.ToUpper().Equals("RESET")) {
+                    return -2;
+                }
+
                 // Check if we got a number
                 try {
                     querySelection = Int32.Parse(input);
@@ -147,11 +158,11 @@ namespace _5101_Project_1
             str += "\t 6) Display city on map\n";
             str += "\t 7) Rank Provinces by Population\n";
             str += "\t 8) Rank Provinces by Cities\n";
-            str += "\t 29) Get Capital of Province\n";
+            str += "\t 9) Get Capital of Province\n";
             str += "\t10) City with Smallest Population\n";
             str += "\t11) City with Largest Population\n";
             str += "\nType \"reset\" to select a different data source\n";
-            str += "2Type \"exit\" to exit\n";
+            str += "Type \"exit\" to exit\n";
             return str;
         }
 
