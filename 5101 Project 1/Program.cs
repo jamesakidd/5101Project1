@@ -335,7 +335,8 @@ namespace _5101_Project_1
                 // **************************************************************************** //
                 // ************************ Show city with smallest population ***************** //
                 // **************************************************************************** //
-                if (querySelection == 11) {
+                if (querySelection == 11)
+                {
                     bool isDone = false;
 
                     while (!isDone) {
@@ -352,11 +353,12 @@ namespace _5101_Project_1
 
                         // Wrap in try catch incase spelling errors or bad data
                         try {
-                            stats.DisplaySmallestPopulationCity(province);
+                            Console.WriteLine($"City with Smallest population in {province}: {stats.DisplaySmallestPopulationCity(province)}");
                             isDone = true;
                         }
                         catch (Exception ex) {
                             Console.WriteLine("Invalid province, check spelling and try again - " + ex.Message);
+
                         }
                     }
                 }
@@ -381,10 +383,11 @@ namespace _5101_Project_1
 
                         // Wrap in try catch incase spelling errors or bad data
                         try {
-                            stats.DisplayLargestPopulationCity(province);
+                            Console.WriteLine($"City with Largest population in {province}: {stats.DisplayLargestPopulationCity(province)}");
                             isDone = true;
                         }
-                        catch (Exception ex) {
+                        catch (Exception ex)
+                        {
                             Console.WriteLine("Invalid province, please try again: " + ex.Message);
                         }
                     }

@@ -44,7 +44,7 @@ namespace _5101_Project_1
         public CityInfo DisplayLargestPopulationCity(string province)  //*************  UNTESTED  *************
         {
             return CityCatalogue
-                .Where(c => string.Equals(c.Value.CityName, province, StringComparison.CurrentCultureIgnoreCase))
+                .Where(c => string.Equals(c.Value.Province, province, StringComparison.CurrentCultureIgnoreCase))
                 .OrderByDescending(c => c.Value.Population).First().Value;
         }
 
@@ -56,7 +56,7 @@ namespace _5101_Project_1
         public CityInfo DisplaySmallestPopulationCity(string province) //*************  UNTESTED  *************
         {
             return CityCatalogue
-                .Where(c => string.Equals(c.Value.CityName, province, StringComparison.CurrentCultureIgnoreCase))
+                .Where(c => string.Equals(c.Value.Province, province, StringComparison.CurrentCultureIgnoreCase))
                 .OrderBy(c => c.Value.Population).First().Value;
         }
 
@@ -242,9 +242,9 @@ namespace _5101_Project_1
         /// returns IEnumerable of all distinct provinces in CityCatalogue
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<String> GetProvinceList()
+        private List<String> GetProvinceList()
         {
-            return CityCatalogue.Select(c => c.Value.Province).Distinct();
+            return CityCatalogue.Select(c => c.Value.Province).Distinct().ToList();
         }
     }//class
 }//ns
