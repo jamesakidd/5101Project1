@@ -14,14 +14,8 @@ namespace _5101_Project_1
             XmlDocument doc = new XmlDocument();
             doc.Load(new StreamReader(fileName));
             XmlNodeList nodeList = doc.GetElementsByTagName("CanadaCity");
-            bool isTitleLine = true;
             foreach(XmlNode node in nodeList)
             {
-                if (isTitleLine)
-                {
-                    isTitleLine = false;
-                    continue;
-                }
                 //getting the attribute data from the CanadaCity node
                 XmlNodeList nodeData = node.ChildNodes;
 
@@ -51,6 +45,8 @@ namespace _5101_Project_1
             List<CityInfo> cities = JsonConvert.DeserializeObject<List<CityInfo>>(json);
             foreach(CityInfo city in cities)
             {
+                if (city.CityName == "")
+                    continue;
                 Cities[city.CityID] = city;
             }
         }
