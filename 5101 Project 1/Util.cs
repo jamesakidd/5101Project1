@@ -109,7 +109,7 @@ namespace _5101_Project_1
                 }
 
                 // Check if number is in range
-                if (querySelection < 0 || querySelection > 10) {
+                if (querySelection < 0 || querySelection > 12) {
                     Console.WriteLine("Invalid Input: selection is not in range");
                 }
                 else {
@@ -134,6 +134,8 @@ namespace _5101_Project_1
             str += "8) Rank Provinces by Population\n";
             str += "9) Rank Provinces by Cities\n";
             str += "10) Get Capital of Province\n";
+            str += "11) City with Smallest Population\n";
+            str += "12) City with Largest Population\n";
             str += "0) Exit Program\n";
             return str;
         }
