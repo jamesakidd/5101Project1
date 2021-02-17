@@ -51,6 +51,8 @@ namespace _5101_Project_1
             List<CityInfo> cities = JsonConvert.DeserializeObject<List<CityInfo>>(json);
             foreach(CityInfo city in cities)
             {
+                if (city.CityName == "")
+                    continue;
                 Cities[city.CityID] = city;
             }
         }
