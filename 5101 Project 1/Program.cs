@@ -270,6 +270,54 @@ namespace _5101_Project_1
                     }
                 }
 
+                // **************************************************************************** //
+                // ************************ Show city with smallest population ***************** //
+                // **************************************************************************** //
+                if (querySelection == 11)
+                {
+                    bool isDone = false;
+                    while (!isDone)
+                    {
+                        Console.Write("Enter a province to get the city with the smallest population");
+                        string province = Console.ReadLine();
+
+                        try
+                        {
+                            stats.DisplaySmallestPopulationCity(province);
+                            isDone = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Invalid province, please try again: " + ex.Message);
+                            continue;
+                        }
+                    }
+                }
+
+                // **************************************************************************** //
+                // ************************ Show city with largest population ***************** //
+                // **************************************************************************** //
+                if (querySelection == 12)
+                {
+                    bool isDone = false;
+                    while (!isDone)
+                    {
+                        Console.Write("Enter a province to get the city with the largest population");
+                        string province = Console.ReadLine();
+
+                        try
+                        {
+                            stats.DisplayLargestPopulationCity(province);
+                            isDone = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Invalid province, please try again: " + ex.Message);
+                            continue;
+                        }
+                    }
+                }
+
                 // ******************** //
                 // *** Exit Program *** //
                 // ******************** //
