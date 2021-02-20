@@ -8,7 +8,12 @@ namespace _5101_Project_1
     public class DataModeler
     {
         public delegate void ParseHandler(string file);
-        private Dictionary<int, CityInfo> Cities = new Dictionary<int, CityInfo>(); //~~  was mentioned in class that we can use the cityId instead of cityName to avoid dupes. Would make it <int, CityInfo> ~~
+        private Dictionary<int, CityInfo> Cities = new Dictionary<int, CityInfo>();
+
+        /// <summary>
+        /// Parses a XML file to be passed to the main city catalouge
+        /// </summary>
+        /// <param name="fileName">The XML file to be parsed</param>
         public void ParseXML(string fileName)
         {
             XmlDocument doc = new XmlDocument();
@@ -39,6 +44,10 @@ namespace _5101_Project_1
             }
         }
 
+        /// <summary>
+        /// Parses a JSON file to be passed to the main city catalouge
+        /// </summary>
+        /// <param name="fileName">The name of the file to be parsed</param>
         public void ParseJSON(string fileName)
         {
             string json = File.ReadAllText(fileName);
@@ -51,6 +60,10 @@ namespace _5101_Project_1
             }
         }
 
+        /// <summary>
+        /// Parses a CSV file to be passed to the main city catalouge
+        /// </summary>
+        /// <param name="fileName">The name of the file to be parsed</param>
         public void ParseCSV(string fileName)
         {
             bool isTitleLine = true;
@@ -86,8 +99,13 @@ namespace _5101_Project_1
             }
         }
 
-        //this method calls one of the Parse functions based on the file type
-        public Dictionary<int, CityInfo> ParseFile(string filename, string type) // I think this needs to just return a CityInfo object. and is called from statisitcs? Unsure.
+        /// <summary>
+        /// Adds the appropriate parsing method to the delegate
+        /// </summary>
+        /// <param name="filename">The name of the file to be parsed</param>
+        /// <param name="type">The type of file to be parsed</param>
+        /// <returns>A Dictionary containing the main city catalog</returns>
+        public Dictionary<int, CityInfo> ParseFile(string filename, string type) 
         {
             switch (type)
             {
@@ -100,8 +118,6 @@ namespace _5101_Project_1
                 case ".xml":
                     ParseXML(filename);
                     break;
-                default:
-                    break; //Throw exception here on invalid filetype? or validate it in client before calling?
             }
             return Cities;
         }
