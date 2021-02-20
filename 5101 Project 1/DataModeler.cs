@@ -5,9 +5,17 @@ using Newtonsoft.Json;
 
 namespace _5101_Project_1
 {
+    /*
+     * DataModeler.cs
+     * Contains methods for return parsing csv, json and xml files
+     * and modeling it into a catalogue of cities to use in the program
+     */
     public class DataModeler
     {
+        //the delegate used to call the different parse methods
         public delegate void ParseHandler(string file);
+
+        //This dictionary will store the catalogue of cities
         private Dictionary<int, CityInfo> Cities = new Dictionary<int, CityInfo>();
 
         /// <summary>
@@ -107,18 +115,40 @@ namespace _5101_Project_1
         /// <returns>A Dictionary containing the main city catalog</returns>
         public Dictionary<int, CityInfo> ParseFile(string filename, string type) 
         {
+            //creating a ParseHandler delegate to call the different parse methods
+            ParseHandler parseHandler;
+
+            //adding the method to the parse handler based on file type
+            //after the catalogue is created the method is removed from the parse handler
+            //this is in case the user resets the file type to a different type
             switch (type)
             {
                 case ".csv":
-                    ParseCSV(filename);
+                    //setting the parse csv method to the delegate
+                    parseHandler = ParseCSV;
+                    //passing the filename to the delegate
+                    parseHandler(filename);
+                    //removing the parse method from the delegate
+                    parseHandler -= ParseCSV;
                     break;
                 case ".json":
-                    ParseJSON(filename);
+                    //setting the parse json method to the delegate
+                    parseHandler = ParseJSON;
+                    //passing the filename to the delegate
+                    parseHandler(filename);
+                    //removing the parse method from the delegate
+                    parseHandler -= ParseJSON;
                     break;
                 case ".xml":
-                    ParseXML(filename);
+                    //setting the parse xml method to the delegate
+                    parseHandler = ParseXML;
+                    //passing the filename to the delegate
+                    parseHandler(filename);
+                    //removing the parse method from the delegate
+                    parseHandler -= ParseXML;
                     break;
             }
+            //return the catalogue of cities
             return Cities;
         }
     }
