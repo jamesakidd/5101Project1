@@ -41,7 +41,7 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province"></param>
         /// <returns>CityInfo Object of the city with the biggest pop in the given province</returns>
-        public CityInfo DisplayLargestPopulationCity(string province)  //*************  UNTESTED  *************
+        public CityInfo DisplayLargestPopulationCity(string province)
         {
             return CityCatalogue
                 .Where(c => string.Equals(c.Value.Province, province, StringComparison.CurrentCultureIgnoreCase))
@@ -53,7 +53,7 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province"></param>
         /// <returns>CityInfo Object of the city with the biggest pop in the given province</returns>
-        public CityInfo DisplaySmallestPopulationCity(string province) //*************  UNTESTED  *************
+        public CityInfo DisplaySmallestPopulationCity(string province)
         {
             return CityCatalogue
                 .Where(c => string.Equals(c.Value.Province, province, StringComparison.CurrentCultureIgnoreCase))
@@ -149,7 +149,7 @@ namespace _5101_Project_1
         /// Returns a sorted dictionary of all province's populations
         /// </summary>
         /// <returns>a sorted dictionary. Key: Total population Value: The Province</returns>
-        public SortedDictionary<int, string> RankProvincesByPopulation() //*************  UNTESTED  *************
+        public SortedDictionary<int, string> RankProvincesByPopulation()
         {
             SortedDictionary<int, string> retSortedDictionary = new SortedDictionary<int, string>();
             var provList = GetProvinceList();
@@ -175,7 +175,7 @@ namespace _5101_Project_1
         /// Returns a sorted dictionary ranking all provinces by how many cities they have
         /// </summary>
         /// <returns>a sorted dictionary. Key: Total cities Value: The Province</returns>
-        public SortedDictionary<int, string> RankProvincesByCities() //*************  UNTESTED  *************
+        public SortedDictionary<int, string> RankProvincesByCities()
         {
             SortedDictionary<int, string> retSortedDictionary = new SortedDictionary<int, string>();
             var provList = GetProvinceList();
@@ -193,7 +193,7 @@ namespace _5101_Project_1
         /// </summary>
         /// <param name="province">The province</param>
         /// <returns>Cityinfo for the province's capital</returns>
-        public CityInfo GetCapital(string province) //*************  UNTESTED  *************
+        public CityInfo GetCapital(string province)
         {
             return CityCatalogue.First(cityInfo =>
                 string.Equals(cityInfo.Value.Province, province, StringComparison.CurrentCultureIgnoreCase) &&

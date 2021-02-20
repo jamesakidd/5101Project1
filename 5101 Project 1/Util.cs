@@ -13,20 +13,18 @@ namespace _5101_Project_1
     {
         // Path
         private const string dataPath = @"..\..\..\Data";
-        
 
         // File names
         public FileInfo[] files;
-        public const string LINE = "--------------------------------------------------------------------------------\n";
 
         // Prints the title
         public String PrintTitle()
         {
             string str = "";
             // Print Title
-            str += LINE;
+            str += "---------------------\n";
             str += "Program functionality\n";
-            str += LINE;
+            str += "---------------------\n\n";
             return str;
         }
 
@@ -35,10 +33,11 @@ namespace _5101_Project_1
         {
             string str = "";
             // Print Title
-            str += "\t- To exit program, enter 'exit' at any prompt.\n";
-            str += "\t- To start program from the begining enter 'restart' at any prompt.\n";
-            str += "\t- You will be presented with a numbered list of options.\n";
-            str += "\t- When prompted, Enter a corrispoiding filename, filetype or query\n\n";
+            str += "- To exit program, enter 'exit' at any prompt.\n";
+            str += "- To start program from the begining enter 'restart' at any prompt.\n";
+            str += "- You will be presented with a numbered list of options.\n";
+            str +=
+                "  Please enter a value, when prompted, to a coresponding file name, file type or data query routine.\n";
             return str;
         }
 
@@ -50,18 +49,16 @@ namespace _5101_Project_1
             string str = "";
             int count = 1;
             foreach (var f in files) {
-                str += "\t" + count + ") " + f.Name + "\n";
+                str += count + ") " + f.Name + "\n";
                 ++count;
             }
 
             return str;
         }
 
-
         // Gets input from user and returns an approprate catalogue
         public int GetCatalogueSelection()
         {
-
             int selection = 0;
             bool isSelectedFileType = false;
             //Statistics stats;
@@ -70,15 +67,6 @@ namespace _5101_Project_1
                 Console.Write("Select an option from the list above (e.g. 1, 2,): ");
                 // Read input
                 String input = Console.ReadLine();
-
-                // check if we should reset
-                if (input.ToUpper().Equals("EXIT"))
-                {
-                    return -1;
-                }
-                if (input.ToUpper().Equals("RESET")) {
-                    return -2;
-                }
 
                 // Check if we got a number
                 try {
@@ -111,17 +99,6 @@ namespace _5101_Project_1
                 // Read input
                 Console.Write("Select a data query routine from the list above for the " + files[catalogueSelection].Name + " file (e.g. 1, 2,): ");
                 string input = Console.ReadLine();
-            
-                // Check for exit
-                if (input.ToUpper().Equals("EXIT"))
-                {
-                    return -1;
-                }
-                // Check for reset
-                if (input.ToUpper().Equals("RESET")) {
-                    return -2;
-                }
-
                 // Check if we got a number
                 try {
                     querySelection = Int32.Parse(input);
@@ -146,26 +123,22 @@ namespace _5101_Project_1
         // Display queries
         public String DisplayQueries()
         {
-            String str = "\n";
-            str += LINE;
-            str += "\tQUERY ROUTINES\n";
-            str += LINE;
-            str += "\t 1) Display City Information\n";
-            str += "\t 2) Display Province Cities\n";
-            str += "\t 3) Calculate Province Population\n";
-            str += "\t 4) Match Cities Population\n";
-            str += "\t 5) Distance Between Cities\n";
-            str += "\t 6) Display city on map\n";
-            str += "\t 7) Rank Provinces by Population\n";
-            str += "\t 8) Rank Provinces by Cities\n";
-            str += "\t 9) Get Capital of Province\n";
-            str += "\t10) City with Smallest Population\n";
-            str += "\t11) City with Largest Population\n";
-            str += "\nType \"reset\" to select a different data source\n";
-            str += "Type \"exit\" to exit\n";
+            String str = "";
+            str += "1) Display City Information\n";
+            str += "2) Display Province Cities\n";
+            str += "3) Calculate Province Population\n";
+            str += "4) Match Cities Population\n";
+            str += "5) Distance Between Cities\n";
+            str += "6) Display city on map\n";
+            str += "7) Restart Program And Choose Another File Or File Type To Query\n";
+            str += "8) Rank Provinces by Population\n";
+            str += "9) Rank Provinces by Cities\n";
+            str += "10) Get Capital of Province\n";
+            str += "11) City with Smallest Population\n";
+            str += "12) City with Largest Population\n";
+            str += "0) Exit Program\n";
             return str;
         }
-
 
         // Select Duplicate City
         // Accepts a list of cities, these cities should be duplicate names
@@ -203,7 +176,5 @@ namespace _5101_Project_1
             }
             return citySelection - 1;
         }
-
-        
     }
 }
