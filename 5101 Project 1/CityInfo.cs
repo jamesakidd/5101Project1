@@ -5,34 +5,44 @@ namespace _5101_Project_1
     public class CityInfo
     {
         [JsonProperty("id")]
-        public int CityID { get; set; } //" id "
+        public int CityID { get; set; }
         [JsonProperty("city")]
-        public string CityName { get; set; } // " city "
+        public string CityName { get; set; }
         [JsonProperty("city_ascii")]
-        public string CityAscii { get; set; } // " city_ascii "
+        public string CityAscii { get; set; }
         [JsonProperty("population")]
-        public int Population { get; set; } // " population "
+        public int Population { get; set; }
         [JsonProperty("admin_name")]
-        public string Province { get; set; } // ~~ field called " admin_name " in CSV file. ~~
+        public string Province { get; set; }
         [JsonProperty("lat")]
-        public decimal Latitude { get; set; } // " lat "
+        public decimal Latitude { get; set; }
         [JsonProperty("lng")]
-        public decimal Longitude { get; set; } // " lng "
+        public decimal Longitude { get; set; }
         [JsonProperty("capital")]
-        public string Capital { get; set; } // **************** NOT LISTED IN THE PROJECT DOC - NEED TO FIND OUT IF THIS IS ALLOWED ****************
+        public string Capital { get; set; }
 
-        //cities that are capitals of their province are marked with the string " admin " in the " capital " column. 
-
+        /// <summary>
+        /// Returns the province the city is in
+        /// </summary>
+        /// <returns>the province as a string</returns>
         public string GetProvince()
         {
             return Province;
         }
 
+        /// <summary>
+        /// Returns the current population
+        /// </summary>
+        /// <returns>The population as an int</returns>
         public int GetPopulation()
         {
             return Population;
         }
 
+        /// <summary>
+        /// returns the location of the current city
+        /// </summary>
+        /// <returns>A string listing the current city's name, lat and long</returns>
         public string GetLocation()
         {
             return $"City: {CityName}, Latitude: {Latitude}, Longitude: {Longitude}";

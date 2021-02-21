@@ -1,24 +1,20 @@
-﻿/**
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using Pastel;
+
+/*
  * Program.cs
  * Date: 02/13/2021
- * The main driving/console/client program that will allow users to query
- * the dataset.
+ * The main driving/console/client program that will allow users to query the dataset.
  */
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using Microsoft.VisualBasic.CompilerServices;
-using Pastel;
 
 namespace _5101_Project_1
 {
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // Instantiate the util class
             Util util = new Util();
@@ -190,7 +186,6 @@ namespace _5101_Project_1
                                 Console.WriteLine("\t\t - " + c.Pastel(Color.Green));
                             }
                             isDone = true;
-                            ;
                         }
                     }
                 }
@@ -423,8 +418,8 @@ namespace _5101_Project_1
                         foreach (var p in prov)
                         {
 
-                            string num = "\t" + count.ToString() + ". \t";
-                            Console.WriteLine("{0,-25} {1,-45} Pop: {2,-10}", num.ToString().Pastel(Color.Aquamarine), p.Value.Pastel(Color.Green), p.Key.ToString("N0").Pastel(Color.Green));
+                            string num = "\t" + count + ". \t";
+                            Console.WriteLine("{0,-25} {1,-45} Pop: {2,-10}", num.Pastel(Color.Aquamarine), p.Value.Pastel(Color.Green), p.Key.ToString("N0").Pastel(Color.Green));
                             ++count;
                         }
                         Console.WriteLine();
@@ -448,8 +443,8 @@ namespace _5101_Project_1
                         foreach (var p in prov)
                         {
 
-                            string num = "\t" + count.ToString() + ". \t";
-                            Console.WriteLine("{0,-25} {1,-45} {2,-10}", num.ToString().Pastel(Color.Aquamarine), p.Value.Pastel(Color.Green), p.Key.ToString("N0").Pastel(Color.Chartreuse));
+                            string num = "\t" + count + ". \t";
+                            Console.WriteLine("{0,-25} {1,-45} {2,-10}", num.Pastel(Color.Aquamarine), p.Value.Pastel(Color.Green), p.Key.ToString("N0").Pastel(Color.Chartreuse));
                             ++count;
                         }
                         Console.WriteLine();

@@ -41,7 +41,7 @@ namespace _5101_Project_1
                 city.Latitude = decimal.Parse(nodeData[2].InnerText);
                 city.Longitude = decimal.Parse(nodeData[3].InnerText);
                 //city.Country = cityData[4]; country is not tracked
-                city.Province = nodeData[5].InnerText; ;
+                city.Province = nodeData[5].InnerText;
 
                 city.Capital = nodeData[6].InnerText;
                 city.Population = int.Parse(nodeData[7].InnerText);

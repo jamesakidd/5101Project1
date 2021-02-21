@@ -227,7 +227,7 @@ namespace _5101_Project_1
                     ++count;
                 }
 
-                String num = Console.ReadLine();
+                string num = Console.ReadLine();
 
                 // Check if we got a number
                 try
@@ -245,7 +245,6 @@ namespace _5101_Project_1
                 catch (Exception ex)
                 {
                     Console.WriteLine("Invalid Input: " + ex.Message);
-                    continue;
                 }
             }
             return citySelection - 1;
